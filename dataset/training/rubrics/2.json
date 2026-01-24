@@ -1,0 +1,109 @@
+{
+  "id": 2,
+  "criteria": [
+    {
+      "id": 1,
+      "name": "Content",
+      "levels": [
+        {
+          "id": 1,
+          "score": 0,
+          "descriptor": "The response is irrelevant, incorrect, or incomplete."
+        },
+        {
+          "id": 2,
+          "score": 1,
+          "descriptor": "The response may lack information or evidence showing a lack of understanding of the text."
+        },
+        {
+          "id": 3,
+          "score": 2,
+          "descriptor": "The response addresses some of the points. Evidence from the story supporting those points is present."
+        },
+        {
+          "id": 4,
+          "score": 3,
+          "descriptor": "The response answers the question asked. Sufficient evidence from the story is used to support points the writer makes."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Prompt Adherence",
+      "levels": [
+        {
+          "id": 1,
+          "score": 0,
+          "descriptor": "The response does not address the prompt at all."
+        },
+        {
+          "id": 2,
+          "score": 1,
+          "descriptor": "The response shows a misreading of the text or question, or consistently wanders off topic."
+        },
+        {
+          "id": 3,
+          "score": 2,
+          "descriptor": "The response shows a good understanding of the meaning of the text and question, though occasionally wanders off topic."
+        },
+        {
+          "id": 4,
+          "score": 3,
+          "descriptor": "The response shows an excellent understanding of the meaning of the text and question, and stays on topic."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Language",
+      "levels": [
+        {
+          "id": 1,
+          "score": 0,
+          "descriptor": "The response has severe language issues that make it incomprehensible."
+        },
+        {
+          "id": 2,
+          "score": 1,
+          "descriptor": "The response has significant language errors that interfere with understanding."
+        },
+        {
+          "id": 3,
+          "score": 2,
+          "descriptor": "The response has some language errors but they do not significantly interfere with understanding."
+        },
+        {
+          "id": 4,
+          "score": 3,
+          "descriptor": "The response demonstrates strong command of language with few or no errors."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Narrativity",
+      "levels": [
+        {
+          "id": 1,
+          "score": 0,
+          "descriptor": "The response lacks any narrative structure or coherence."
+        },
+        {
+          "id": 2,
+          "score": 1,
+          "descriptor": "The response has minimal narrative structure with poor coherence."
+        },
+        {
+          "id": 3,
+          "score": 2,
+          "descriptor": "The response has adequate narrative structure with reasonable coherence."
+        },
+        {
+          "id": 4,
+          "score": 3,
+          "descriptor": "The response has strong narrative structure with excellent coherence and flow."
+        }
+      ]
+    }
+  ]
+}

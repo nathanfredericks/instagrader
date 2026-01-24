@@ -1,0 +1,185 @@
+{
+  "id": 1,
+  "criteria": [
+    {
+      "id": 1,
+      "name": "Content",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "The writing lacks a central idea or purpose. Ideas are extremely limited or unclear, with attempts at development that are minimal or nonexistent."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Main ideas and purpose are somewhat unclear or development is attempted but minimal. Details are irrelevant, repetitive, or insufficient."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "The reader can understand the main ideas, although they may be overly broad or simplistic. Supporting detail is often limited, insubstantial, or occasionally off-topic."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "The writing is clear and focused. The reader can easily understand the main ideas. Support is present, though may be overly general or limited in places."
+        },
+        {
+          "id": 5,
+          "score": 5,
+          "descriptor": "The writing is clear, focused, and interesting. Main ideas stand out and are developed by supporting details suitable to audience and purpose."
+        },
+        {
+          "id": 6,
+          "score": 6,
+          "descriptor": "The writing is exceptionally clear, focused, and interesting. It holds the reader's attention throughout with strong support and rich details."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Organization",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "The essay is awkward and fragmented. Ideas are not self-contained and there is no clear structure."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Shows little or no evidence of organization. The writing lacks coherent structure."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "The essay shows some organization. Ideas may not be fully self-contained. Form may not match the expected format."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "The essay shows satisfactory organization. Contains a basic introduction, body, and conclusion."
+        },
+        {
+          "id": 5,
+          "score": 5,
+          "descriptor": "The essay shows good organization. There is a flow of ideas, though they may not be completely self-contained."
+        },
+        {
+          "id": 6,
+          "score": 6,
+          "descriptor": "The essay is well-organized. There is a clear flow of ideas with each idea self-contained. Has appropriate form for the task."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Word Choice",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "The writing shows extremely limited vocabulary or words are misused so meaning is obscured. Words do not fit the text and seem imprecise or inadequate."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Language is monotonous and/or misused, detracting from meaning and impact. Words are flat, colorless, or imprecise with repetitive patterns."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "Language lacks precision and variety, or may be inappropriate in places. Writing uses familiar but generic words that rarely capture reader interest."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "Words effectively convey the intended message. Writer employs functional words appropriate to audience and purpose, though not particularly energizing."
+        },
+        {
+          "id": 5,
+          "score": 5,
+          "descriptor": "Words convey the intended message in an interesting, precise, and natural way. Writer employs a broad range of carefully chosen words."
+        },
+        {
+          "id": 6,
+          "score": 6,
+          "descriptor": "Words convey the intended message in an exceptionally interesting, precise, and natural way. Rich, broad vocabulary with words carefully placed for impact."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Sentence Fluency",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "The writing is difficult to follow or read aloud. Sentences are incomplete, rambling, or irregular with confusing word order."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "The writing tends to be choppy or rambling. Awkward constructions force rereading. Sentence patterns are monotonous."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "The writing tends to be mechanical rather than fluid. Some passages invite reading while others are awkward. Some variety in structure exists."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "The writing flows, though connections between phrases may be less than fluid. Sentence patterns are somewhat varied, contributing to ease in reading."
+        },
+        {
+          "id": 5,
+          "score": 5,
+          "descriptor": "The writing has an easy flow and rhythm. Sentences are carefully crafted with strong and varied structure that makes reading enjoyable."
+        },
+        {
+          "id": 6,
+          "score": 6,
+          "descriptor": "The writing has an effective flow and rhythm. Sentences show a high degree of craftsmanship with consistently strong and varied structure."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Conventions",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "Numerous errors in usage, spelling, capitalization, and punctuation repeatedly distract the reader. The severity and frequency of errors make the text difficult to read."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "The writing demonstrates little control of standard conventions. Frequent, significant errors impede readability."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "The writing demonstrates limited control of standard conventions. Errors begin to impede readability with frequent spelling or grammar mistakes."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "The writing demonstrates control of standard conventions. Significant errors do not occur frequently. Minor errors do not impede readability."
+        },
+        {
+          "id": 5,
+          "score": 5,
+          "descriptor": "The writing demonstrates strong control of standard conventions. Errors are few and minor. Conventions support readability."
+        },
+        {
+          "id": 6,
+          "score": 6,
+          "descriptor": "The writing demonstrates exceptionally strong control of standard conventions and uses them effectively to enhance communication."
+        }
+      ]
+    }
+  ]
+}
