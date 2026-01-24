@@ -1,526 +1,85 @@
 [
   {
-    "essay_id": 1,
-    "essay_set": 1,
-    "prompt": "More and more people use computers, but not everyone agrees that this benefits society. Write a letter to your local newspaper stating your opinion on the effects computers have on people. Persuade the readers to agree with you.",
-    "rubric": [
-      {
-        "name": "Content",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing lacks a central idea or purpose. Ideas are extremely limited or unclear, with attempts at development that are minimal or nonexistent."
-          },
-          {
-            "score": 2,
-            "definition": "Main ideas and purpose are somewhat unclear or development is attempted but minimal. Details are irrelevant, repetitive, or insufficient."
-          },
-          {
-            "score": 3,
-            "definition": "The reader can understand the main ideas, although they may be overly broad or simplistic. Supporting detail is often limited, insubstantial, or occasionally off-topic."
-          },
-          {
-            "score": 4,
-            "definition": "The writing is clear and focused. The reader can easily understand the main ideas. Support is present, though may be overly general or limited in places."
-          },
-          {
-            "score": 5,
-            "definition": "The writing is clear, focused, and interesting. Main ideas stand out and are developed by supporting details suitable to audience and purpose."
-          },
-          {
-            "score": 6,
-            "definition": "The writing is exceptionally clear, focused, and interesting. It holds the reader's attention throughout with strong support and rich details."
-          }
-        ]
-      },
-      {
-        "name": "Organization",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The essay is awkward and fragmented. Ideas are not self-contained and there is no clear structure."
-          },
-          {
-            "score": 2,
-            "definition": "Shows little or no evidence of organization. The writing lacks coherent structure."
-          },
-          {
-            "score": 3,
-            "definition": "The essay shows some organization. Ideas may not be fully self-contained. Form may not match the expected format."
-          },
-          {
-            "score": 4,
-            "definition": "The essay shows satisfactory organization. Contains a basic introduction, body, and conclusion."
-          },
-          {
-            "score": 5,
-            "definition": "The essay shows good organization. There is a flow of ideas, though they may not be completely self-contained."
-          },
-          {
-            "score": 6,
-            "definition": "The essay is well-organized. There is a clear flow of ideas with each idea self-contained. Has appropriate form for the task."
-          }
-        ]
-      },
-      {
-        "name": "Word Choice",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing shows extremely limited vocabulary or words are misused so meaning is obscured. Words do not fit the text and seem imprecise or inadequate."
-          },
-          {
-            "score": 2,
-            "definition": "Language is monotonous and/or misused, detracting from meaning and impact. Words are flat, colorless, or imprecise with repetitive patterns."
-          },
-          {
-            "score": 3,
-            "definition": "Language lacks precision and variety, or may be inappropriate in places. Writing uses familiar but generic words that rarely capture reader interest."
-          },
-          {
-            "score": 4,
-            "definition": "Words effectively convey the intended message. Writer employs functional words appropriate to audience and purpose, though not particularly energizing."
-          },
-          {
-            "score": 5,
-            "definition": "Words convey the intended message in an interesting, precise, and natural way. Writer employs a broad range of carefully chosen words."
-          },
-          {
-            "score": 6,
-            "definition": "Words convey the intended message in an exceptionally interesting, precise, and natural way. Rich, broad vocabulary with words carefully placed for impact."
-          }
-        ]
-      },
-      {
-        "name": "Sentence Fluency",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing is difficult to follow or read aloud. Sentences are incomplete, rambling, or irregular with confusing word order."
-          },
-          {
-            "score": 2,
-            "definition": "The writing tends to be choppy or rambling. Awkward constructions force rereading. Sentence patterns are monotonous."
-          },
-          {
-            "score": 3,
-            "definition": "The writing tends to be mechanical rather than fluid. Some passages invite reading while others are awkward. Some variety in structure exists."
-          },
-          {
-            "score": 4,
-            "definition": "The writing flows, though connections between phrases may be less than fluid. Sentence patterns are somewhat varied, contributing to ease in reading."
-          },
-          {
-            "score": 5,
-            "definition": "The writing has an easy flow and rhythm. Sentences are carefully crafted with strong and varied structure that makes reading enjoyable."
-          },
-          {
-            "score": 6,
-            "definition": "The writing has an effective flow and rhythm. Sentences show a high degree of craftsmanship with consistently strong and varied structure."
-          }
-        ]
-      },
-      {
-        "name": "Conventions",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "Numerous errors in usage, spelling, capitalization, and punctuation repeatedly distract the reader. The severity and frequency of errors make the text difficult to read."
-          },
-          {
-            "score": 2,
-            "definition": "The writing demonstrates little control of standard conventions. Frequent, significant errors impede readability."
-          },
-          {
-            "score": 3,
-            "definition": "The writing demonstrates limited control of standard conventions. Errors begin to impede readability with frequent spelling or grammar mistakes."
-          },
-          {
-            "score": 4,
-            "definition": "The writing demonstrates control of standard conventions. Significant errors do not occur frequently. Minor errors do not impede readability."
-          },
-          {
-            "score": 5,
-            "definition": "The writing demonstrates strong control of standard conventions. Errors are few and minor. Conventions support readability."
-          },
-          {
-            "score": 6,
-            "definition": "The writing demonstrates exceptionally strong control of standard conventions and uses them effectively to enhance communication."
-          }
-        ]
-      }
-    ],
+    "id": 1,
+    "prompt_id": 1,
+    "rubric_id": 1,
     "essay": "Dear local newspaper, I think effects computers have on people are great learning skills/affects because they give us time to chat with friends/new people, helps us learn about the globe(astronomy) and keeps us out of troble! Thing about! Dont you think so? How would you feel if your teenager is always on the phone with friends! Do you ever time to chat with your friends or buisness partner about things. Well now - there's a new way to chat the computer, theirs plenty of sites on the internet to do so: @ORGANIZATION1, @ORGANIZATION2, @CAPS1, facebook, myspace ect. Just think now while your setting up meeting with your boss on the computer, your teenager is having fun on the phone not rushing to get off cause you want to use it. How did you learn about other countrys/states outside of yours? Well I have by computer/internet, it's a new way to learn about what going on in our time! You might think your child spends a lot of time on the computer, but ask them so question about the economy, sea floor spreading or even about the @DATE1's you'll be surprise at how much he/she knows. Believe it or not the computer is much interesting then in class all day reading out of books. If your child is home on your computer or at a local library, it's better than being out with friends being fresh, or being perpressured to doing something they know isnt right. You might not know where your child is, @CAPS2 forbidde in a hospital bed because of a drive-by. Rather than your child on the computer learning, chatting or just playing games, safe and sound in your home or community place. Now I hope you have reached a point to understand and agree with me, because computers can have great effects on you or child because it gives us time to chat with friends/new people, helps us learn about the globe and believe or not keeps us out of troble. Thank you for listening.",
     "scores": [
       {
-        "name": "Content",
-        "score": 4
+        "criteria_id": 1,
+        "level_id": 4
       },
       {
-        "name": "Organization",
-        "score": 3
+        "criteria_id": 2,
+        "level_id": 3
       },
       {
-        "name": "Word Choice",
-        "score": 3
+        "criteria_id": 3,
+        "level_id": 3
       },
       {
-        "name": "Sentence Fluency",
-        "score": 3
+        "criteria_id": 4,
+        "level_id": 3
       },
       {
-        "name": "Conventions",
-        "score": 3
+        "criteria_id": 5,
+        "level_id": 3
       }
     ]
   },
   {
-    "essay_id": 2,
-    "essay_set": 1,
-    "prompt": "More and more people use computers, but not everyone agrees that this benefits society. Write a letter to your local newspaper stating your opinion on the effects computers have on people. Persuade the readers to agree with you.",
-    "rubric": [
-      {
-        "name": "Content",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing lacks a central idea or purpose. Ideas are extremely limited or unclear, with attempts at development that are minimal or nonexistent."
-          },
-          {
-            "score": 2,
-            "definition": "Main ideas and purpose are somewhat unclear or development is attempted but minimal. Details are irrelevant, repetitive, or insufficient."
-          },
-          {
-            "score": 3,
-            "definition": "The reader can understand the main ideas, although they may be overly broad or simplistic. Supporting detail is often limited, insubstantial, or occasionally off-topic."
-          },
-          {
-            "score": 4,
-            "definition": "The writing is clear and focused. The reader can easily understand the main ideas. Support is present, though may be overly general or limited in places."
-          },
-          {
-            "score": 5,
-            "definition": "The writing is clear, focused, and interesting. Main ideas stand out and are developed by supporting details suitable to audience and purpose."
-          },
-          {
-            "score": 6,
-            "definition": "The writing is exceptionally clear, focused, and interesting. It holds the reader's attention throughout with strong support and rich details."
-          }
-        ]
-      },
-      {
-        "name": "Organization",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The essay is awkward and fragmented. Ideas are not self-contained and there is no clear structure."
-          },
-          {
-            "score": 2,
-            "definition": "Shows little or no evidence of organization. The writing lacks coherent structure."
-          },
-          {
-            "score": 3,
-            "definition": "The essay shows some organization. Ideas may not be fully self-contained. Form may not match the expected format."
-          },
-          {
-            "score": 4,
-            "definition": "The essay shows satisfactory organization. Contains a basic introduction, body, and conclusion."
-          },
-          {
-            "score": 5,
-            "definition": "The essay shows good organization. There is a flow of ideas, though they may not be completely self-contained."
-          },
-          {
-            "score": 6,
-            "definition": "The essay is well-organized. There is a clear flow of ideas with each idea self-contained. Has appropriate form for the task."
-          }
-        ]
-      },
-      {
-        "name": "Word Choice",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing shows extremely limited vocabulary or words are misused so meaning is obscured. Words do not fit the text and seem imprecise or inadequate."
-          },
-          {
-            "score": 2,
-            "definition": "Language is monotonous and/or misused, detracting from meaning and impact. Words are flat, colorless, or imprecise with repetitive patterns."
-          },
-          {
-            "score": 3,
-            "definition": "Language lacks precision and variety, or may be inappropriate in places. Writing uses familiar but generic words that rarely capture reader interest."
-          },
-          {
-            "score": 4,
-            "definition": "Words effectively convey the intended message. Writer employs functional words appropriate to audience and purpose, though not particularly energizing."
-          },
-          {
-            "score": 5,
-            "definition": "Words convey the intended message in an interesting, precise, and natural way. Writer employs a broad range of carefully chosen words."
-          },
-          {
-            "score": 6,
-            "definition": "Words convey the intended message in an exceptionally interesting, precise, and natural way. Rich, broad vocabulary with words carefully placed for impact."
-          }
-        ]
-      },
-      {
-        "name": "Sentence Fluency",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing is difficult to follow or read aloud. Sentences are incomplete, rambling, or irregular with confusing word order."
-          },
-          {
-            "score": 2,
-            "definition": "The writing tends to be choppy or rambling. Awkward constructions force rereading. Sentence patterns are monotonous."
-          },
-          {
-            "score": 3,
-            "definition": "The writing tends to be mechanical rather than fluid. Some passages invite reading while others are awkward. Some variety in structure exists."
-          },
-          {
-            "score": 4,
-            "definition": "The writing flows, though connections between phrases may be less than fluid. Sentence patterns are somewhat varied, contributing to ease in reading."
-          },
-          {
-            "score": 5,
-            "definition": "The writing has an easy flow and rhythm. Sentences are carefully crafted with strong and varied structure that makes reading enjoyable."
-          },
-          {
-            "score": 6,
-            "definition": "The writing has an effective flow and rhythm. Sentences show a high degree of craftsmanship with consistently strong and varied structure."
-          }
-        ]
-      },
-      {
-        "name": "Conventions",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "Numerous errors in usage, spelling, capitalization, and punctuation repeatedly distract the reader. The severity and frequency of errors make the text difficult to read."
-          },
-          {
-            "score": 2,
-            "definition": "The writing demonstrates little control of standard conventions. Frequent, significant errors impede readability."
-          },
-          {
-            "score": 3,
-            "definition": "The writing demonstrates limited control of standard conventions. Errors begin to impede readability with frequent spelling or grammar mistakes."
-          },
-          {
-            "score": 4,
-            "definition": "The writing demonstrates control of standard conventions. Significant errors do not occur frequently. Minor errors do not impede readability."
-          },
-          {
-            "score": 5,
-            "definition": "The writing demonstrates strong control of standard conventions. Errors are few and minor. Conventions support readability."
-          },
-          {
-            "score": 6,
-            "definition": "The writing demonstrates exceptionally strong control of standard conventions and uses them effectively to enhance communication."
-          }
-        ]
-      }
-    ],
+    "id": 2,
+    "prompt_id": 1,
+    "rubric_id": 1,
     "essay": "Dear @CAPS1 @CAPS2, I believe that using computers will benefit us in many ways like talking and becoming friends will others through websites like facebook and mysace. Using computers can help us find coordibates, locations, and able ourselfs to millions of information. Also computers will benefit us by helping with jobs as in planning a house plan and typing a @NUM1 page report for one of our jobs in less than writing it. Now lets go into the wonder world of technology. Using a computer will help us in life by talking or making friends on line. Many people have myspace, facebooks, aim, these all benefit us by having conversations with one another. Many people believe computers are bad but how can you make friends if you can never talk to them? I am very fortunate for having a computer that can help with not only school work but my social life and how I make friends. Computers help us with finding our locations, coordibates and millions of information online. If we didn't go on the internet a lot we wouldn't know how to go onto websites that @MONTH1 help us with locations and coordinates like @LOCATION1. Would you rather use a computer or be in @LOCATION3. When your supposed to be vacationing in @LOCATION2. Million of information is found on the internet. You can as almost every question and a computer will have it. Would you rather easily draw up a house plan on the computers or take @NUM1 hours doing one by hand with ugly erazer marks all over it, you are garrenteed that to find a job with a drawing like that. Also when appling for a job many workers must write very long papers like a @NUM3 word essay on why this job fits you the most, and many people I know don't like writing @NUM3 words non-stopp for hours when it could take them I hav an a computer. That is why computers we needed a lot now adays. I hope this essay has impacted your descion on computers because they are great machines to work with. The other day I showed my mom how to use a computer and she said it was the greatest invention sense sliced bread! Now go out and buy a computer to help you chat online with friends, find locations and millions of information on one click of the button and help your self with getting a job with neat, prepared, printed work that your boss will love.",
     "scores": [
       {
-        "name": "Content",
-        "score": 4
+        "criteria_id": 1,
+        "level_id": 4
       },
       {
-        "name": "Organization",
-        "score": 4
+        "criteria_id": 2,
+        "level_id": 4
       },
       {
-        "name": "Word Choice",
-        "score": 4
+        "criteria_id": 3,
+        "level_id": 4
       },
       {
-        "name": "Sentence Fluency",
-        "score": 3
+        "criteria_id": 4,
+        "level_id": 3
       },
       {
-        "name": "Conventions",
-        "score": 4
+        "criteria_id": 5,
+        "level_id": 4
       }
     ]
   },
   {
-    "essay_id": 3,
-    "essay_set": 1,
-    "prompt": "More and more people use computers, but not everyone agrees that this benefits society. Write a letter to your local newspaper stating your opinion on the effects computers have on people. Persuade the readers to agree with you.",
-    "rubric": [
-      {
-        "name": "Content",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing lacks a central idea or purpose. Ideas are extremely limited or unclear, with attempts at development that are minimal or nonexistent."
-          },
-          {
-            "score": 2,
-            "definition": "Main ideas and purpose are somewhat unclear or development is attempted but minimal. Details are irrelevant, repetitive, or insufficient."
-          },
-          {
-            "score": 3,
-            "definition": "The reader can understand the main ideas, although they may be overly broad or simplistic. Supporting detail is often limited, insubstantial, or occasionally off-topic."
-          },
-          {
-            "score": 4,
-            "definition": "The writing is clear and focused. The reader can easily understand the main ideas. Support is present, though may be overly general or limited in places."
-          },
-          {
-            "score": 5,
-            "definition": "The writing is clear, focused, and interesting. Main ideas stand out and are developed by supporting details suitable to audience and purpose."
-          },
-          {
-            "score": 6,
-            "definition": "The writing is exceptionally clear, focused, and interesting. It holds the reader's attention throughout with strong support and rich details."
-          }
-        ]
-      },
-      {
-        "name": "Organization",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The essay is awkward and fragmented. Ideas are not self-contained and there is no clear structure."
-          },
-          {
-            "score": 2,
-            "definition": "Shows little or no evidence of organization. The writing lacks coherent structure."
-          },
-          {
-            "score": 3,
-            "definition": "The essay shows some organization. Ideas may not be fully self-contained. Form may not match the expected format."
-          },
-          {
-            "score": 4,
-            "definition": "The essay shows satisfactory organization. Contains a basic introduction, body, and conclusion."
-          },
-          {
-            "score": 5,
-            "definition": "The essay shows good organization. There is a flow of ideas, though they may not be completely self-contained."
-          },
-          {
-            "score": 6,
-            "definition": "The essay is well-organized. There is a clear flow of ideas with each idea self-contained. Has appropriate form for the task."
-          }
-        ]
-      },
-      {
-        "name": "Word Choice",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing shows extremely limited vocabulary or words are misused so meaning is obscured. Words do not fit the text and seem imprecise or inadequate."
-          },
-          {
-            "score": 2,
-            "definition": "Language is monotonous and/or misused, detracting from meaning and impact. Words are flat, colorless, or imprecise with repetitive patterns."
-          },
-          {
-            "score": 3,
-            "definition": "Language lacks precision and variety, or may be inappropriate in places. Writing uses familiar but generic words that rarely capture reader interest."
-          },
-          {
-            "score": 4,
-            "definition": "Words effectively convey the intended message. Writer employs functional words appropriate to audience and purpose, though not particularly energizing."
-          },
-          {
-            "score": 5,
-            "definition": "Words convey the intended message in an interesting, precise, and natural way. Writer employs a broad range of carefully chosen words."
-          },
-          {
-            "score": 6,
-            "definition": "Words convey the intended message in an exceptionally interesting, precise, and natural way. Rich, broad vocabulary with words carefully placed for impact."
-          }
-        ]
-      },
-      {
-        "name": "Sentence Fluency",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "The writing is difficult to follow or read aloud. Sentences are incomplete, rambling, or irregular with confusing word order."
-          },
-          {
-            "score": 2,
-            "definition": "The writing tends to be choppy or rambling. Awkward constructions force rereading. Sentence patterns are monotonous."
-          },
-          {
-            "score": 3,
-            "definition": "The writing tends to be mechanical rather than fluid. Some passages invite reading while others are awkward. Some variety in structure exists."
-          },
-          {
-            "score": 4,
-            "definition": "The writing flows, though connections between phrases may be less than fluid. Sentence patterns are somewhat varied, contributing to ease in reading."
-          },
-          {
-            "score": 5,
-            "definition": "The writing has an easy flow and rhythm. Sentences are carefully crafted with strong and varied structure that makes reading enjoyable."
-          },
-          {
-            "score": 6,
-            "definition": "The writing has an effective flow and rhythm. Sentences show a high degree of craftsmanship with consistently strong and varied structure."
-          }
-        ]
-      },
-      {
-        "name": "Conventions",
-        "levels": [
-          {
-            "score": 1,
-            "definition": "Numerous errors in usage, spelling, capitalization, and punctuation repeatedly distract the reader. The severity and frequency of errors make the text difficult to read."
-          },
-          {
-            "score": 2,
-            "definition": "The writing demonstrates little control of standard conventions. Frequent, significant errors impede readability."
-          },
-          {
-            "score": 3,
-            "definition": "The writing demonstrates limited control of standard conventions. Errors begin to impede readability with frequent spelling or grammar mistakes."
-          },
-          {
-            "score": 4,
-            "definition": "The writing demonstrates control of standard conventions. Significant errors do not occur frequently. Minor errors do not impede readability."
-          },
-          {
-            "score": 5,
-            "definition": "The writing demonstrates strong control of standard conventions. Errors are few and minor. Conventions support readability."
-          },
-          {
-            "score": 6,
-            "definition": "The writing demonstrates exceptionally strong control of standard conventions and uses them effectively to enhance communication."
-          }
-        ]
-      }
-    ],
+    "id": 3,
+    "prompt_id": 1,
+    "rubric_id": 1,
     "essay": "Dear, @CAPS1 @CAPS2 @CAPS3 More and more people use computers, but not everyone agrees that this benefits society. Those who support advances in technology believe that computers have a positive effect on people. Others have different ideas. A great amount in the world today are using computers, some for work and spme for the fun of it. Computers is one of mans greatest accomplishments. Computers are helpful in so many ways, @CAPS4, news, and live streams. Don't get me wrong way to much people spend time on the computer and they should be out interacting with others but who are we to tell them what to do. When I grow up I want to be a author or a journalist and I know for a fact that both of those jobs involve lots of time on time on the computer, one @MONTH1 spend more time then the other but you know exactly what @CAPS5 getting at. So what if some expert think people are spending to much time on the computer and not exercising, enjoying natures and interacting with family and friends. For all the expert knows that its how must people make a living and we don't know why people choose to use the computer for a great amount of time and to be honest it's non of my concern and it shouldn't be the so called experts concern. People interact a thousand times a day on the computers. Computers keep lots of kids of the streets instead of being out and causing trouble. Computers helps the @ORGANIZATION1 locate most wanted criminals. As you can see computers are more useful to society then you think, computers benefit society.",
     "scores": [
       {
-        "name": "Content",
-        "score": 3
+        "criteria_id": 1,
+        "level_id": 3
       },
       {
-        "name": "Organization",
-        "score": 3
+        "criteria_id": 2,
+        "level_id": 3
       },
       {
-        "name": "Word Choice",
-        "score": 3
+        "criteria_id": 3,
+        "level_id": 3
       },
       {
-        "name": "Sentence Fluency",
-        "score": 4
+        "criteria_id": 4,
+        "level_id": 4
       },
       {
-        "name": "Conventions",
-        "score": 4
+        "criteria_id": 5,
+        "level_id": 4
       }
     ]
   }
