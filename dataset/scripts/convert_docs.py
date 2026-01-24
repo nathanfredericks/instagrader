@@ -1,9 +1,3 @@
-# /// script
-# dependencies = [
-#     "markitdown",
-# ]
-# ///
-
 from pathlib import Path
 from markitdown import MarkItDown
 
