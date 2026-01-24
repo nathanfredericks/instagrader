@@ -104,7 +104,7 @@ merged = merge_datasets(essays, scores)
 
 output_path = OUTPUT_DIR / "essays.json"
 with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(merged, f, indent=2)
+    json.dump(merged, f)
 
 sample_path = OUTPUT_DIR / "sample.json"
 with open(sample_path, "w", encoding="utf-8") as f:
