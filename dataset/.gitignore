@@ -3,3 +3,4 @@ __pycache__
 training/batch_input.jsonl
 training/essays.json
 training/essays_with_feedback.json
+notebooks/.ipynb_checkpoints
