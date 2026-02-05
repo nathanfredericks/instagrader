@@ -1,0 +1,8 @@
+parameter,value
+customization_technique,sft
+training_file,training/aws_finetune_train.jsonl
+validation_file,training/aws_finetune_validation.jsonl
+batch_size,8
+learning_rate,0.0001
+epochs,5
+lr_warmup_ratio,0.1
