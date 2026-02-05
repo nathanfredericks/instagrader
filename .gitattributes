@@ -1,1 +1,2 @@
 dataset/training/*.jsonl filter=lfs diff=lfs merge=lfs -text
+dataset/training/essays*.json filter=lfs diff=lfs merge=lfs -text
