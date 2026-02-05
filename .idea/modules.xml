@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/dataset/.idea/dataset.iml" filepath="$PROJECT_DIR$/dataset/.idea/dataset.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/instagrader.iml" filepath="$PROJECT_DIR$/.idea/instagrader.iml" />
       <module fileurl="file://$PROJECT_DIR$/model-poc/.idea/model-poc.iml" filepath="$PROJECT_DIR$/model-poc/.idea/model-poc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/project/.idea/project.iml" filepath="$PROJECT_DIR$/project/.idea/project.iml" />
       <module fileurl="file://$PROJECT_DIR$/proposal/.idea/proposal.iml" filepath="$PROJECT_DIR$/proposal/.idea/proposal.iml" />
     </modules>
   </component>
