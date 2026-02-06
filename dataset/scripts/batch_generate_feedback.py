@@ -23,6 +23,7 @@ S3_BUCKET = "instagrader-dataset-generate-feedback"
 BEDROCK_ROLE_ARN = "arn:aws:iam::605134461989:role/BedrockBatchInferenceRole"
 MAX_TOKENS = 2048
 
+
 def load_prompt(prompt_id: int) -> dict:
     path = BASE_DIR / "prompts" / f"{prompt_id}.json"
     with open(path) as f:
