@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "./model-poc"
+		},
+		{
+			"path": "./project"
+		},
+		{
+			"path": "./dataset"
+		},
+		{
+			"path": "./proposal"
+		}
+	],
+	"settings": {}
+}
