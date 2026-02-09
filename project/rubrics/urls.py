@@ -11,31 +11,31 @@ from .views import (
 )
 
 urlpatterns = [
-    path('', RubricListCreateView.as_view(), name='rubric_list_create'),
-    path('<uuid:rubric_id>/', RubricDetailView.as_view(), name='rubric_detail'),
+    path("", RubricListCreateView.as_view(), name="rubric_list_create"),
+    path("<uuid:rubric_id>/", RubricDetailView.as_view(), name="rubric_detail"),
     path(
-        '<uuid:rubric_id>/criteria/',
+        "<uuid:rubric_id>/criteria/",
         CriterionListCreateView.as_view(),
-        name='criterion_list_create',
+        name="criterion_list_create",
     ),
     path(
-        '<uuid:rubric_id>/criteria/reorder/',
+        "<uuid:rubric_id>/criteria/reorder/",
         CriterionReorderView.as_view(),
-        name='criterion_reorder',
+        name="criterion_reorder",
     ),
     path(
-        '<uuid:rubric_id>/criteria/<uuid:criterion_id>/',
+        "<uuid:rubric_id>/criteria/<uuid:criterion_id>/",
         CriterionDetailView.as_view(),
-        name='criterion_detail',
+        name="criterion_detail",
     ),
     path(
-        '<uuid:rubric_id>/criteria/<uuid:criterion_id>/levels/',
+        "<uuid:rubric_id>/criteria/<uuid:criterion_id>/levels/",
         LevelListCreateView.as_view(),
-        name='level_list_create',
+        name="level_list_create",
     ),
     path(
-        '<uuid:rubric_id>/criteria/<uuid:criterion_id>/levels/<uuid:level_id>/',
+        "<uuid:rubric_id>/criteria/<uuid:criterion_id>/levels/<uuid:level_id>/",
         LevelDetailView.as_view(),
-        name='level_detail',
+        name="level_detail",
     ),
 ]

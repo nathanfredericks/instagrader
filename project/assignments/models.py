@@ -1,40 +1,50 @@
-import uuid
+from __future__ import annotations
 
-from django.conf import settings
+import uuid
+from datetime import datetime
+from typing import TYPE_CHECKING
+
+from accounts.models import User
 from django.db import models
+from rubrics.models import Rubric
 
 
 class Assignment(models.Model):
     """An assignment created by a teacher."""
 
-    class Status(models.TextChoices):
-        DRAFT = 'draft', 'Draft'
-        GRADING = 'grading', 'Grading'
-        REVIEW = 'review', 'Review'
-        COMPLETED = 'completed', 'Completed'
+    if TYPE_CHECKING:
+        essays: models.Manager[Essay]
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='assignments'
+    class Status(models.TextChoices):
+        DRAFT = "draft", "Draft"
+        GRADING = "grading", "Grading"
+        REVIEW = "review", "Review"
+        COMPLETED = "completed", "Completed"
+
+    id = models.UUIDField[uuid.UUID | str, uuid.UUID](
+        primary_key=True, default=uuid.uuid4, editable=False
     )
-    rubric = models.ForeignKey(
-        'rubrics.Rubric', on_delete=models.PROTECT, related_name='assignments'
+    user = models.ForeignKey[User, User](
+        User, on_delete=models.CASCADE, related_name="assignments"
     )
-    title = models.CharField(max_length=255)
-    prompt = models.TextField(help_text='Writing assignment prompt for AI')
-    source_text = models.TextField(
-        blank=True, help_text='Reference material for the essay'
+    rubric = models.ForeignKey[Rubric, Rubric](
+        Rubric, on_delete=models.PROTECT, related_name="assignments"
     )
-    status = models.CharField(
+    title = models.CharField[str, str](max_length=255)
+    prompt = models.TextField[str, str](help_text="Writing assignment prompt for AI")
+    source_text = models.TextField[str, str](
+        blank=True, help_text="Reference material for the essay"
+    )
+    status = models.CharField[str, str](
         max_length=20, choices=Status.choices, default=Status.DRAFT
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField[datetime | str, datetime](auto_now_add=True)
+    updated_at = models.DateTimeField[datetime | str, datetime](auto_now=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ["-created_at"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
@@ -42,28 +52,33 @@ class Essay(models.Model):
     """A student essay submission."""
 
     class Status(models.TextChoices):
-        PENDING = 'pending', 'Pending'
-        PROCESSING = 'processing', 'Processing'
-        GRADED = 'graded', 'Graded'
-        REVIEWED = 'reviewed', 'Reviewed'
+        PENDING = "pending", "Pending"
+        PROCESSING = "processing", "Processing"
+        GRADED = "graded", "Graded"
+        REVIEWED = "reviewed", "Reviewed"
+        FAILED = "failed", "Failed"
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    assignment = models.ForeignKey(
-        Assignment, on_delete=models.CASCADE, related_name='essays'
+    id = models.UUIDField[uuid.UUID | str, uuid.UUID](
+        primary_key=True, default=uuid.uuid4, editable=False
     )
-    student_name = models.CharField(max_length=255, help_text='From filename or metadata')
-    original_file = models.FileField(upload_to='essays/')
-    extracted_text = models.TextField(
-        blank=True, help_text='Converted text (via MarkItDown later)'
+    assignment = models.ForeignKey[Assignment, Assignment](
+        Assignment, on_delete=models.CASCADE, related_name="essays"
     )
-    status = models.CharField(
+    file_name = models.CharField[str, str](
+        max_length=255, help_text="Original filename of the uploaded essay"
+    )
+    original_file = models.FileField(upload_to="essays/")
+    extracted_text = models.TextField[str, str](
+        blank=True, help_text="Converted text (via MarkItDown later)"
+    )
+    status = models.CharField[str, str](
         max_length=20, choices=Status.choices, default=Status.PENDING
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField[datetime | str, datetime](auto_now_add=True)
+    updated_at = models.DateTimeField[datetime | str, datetime](auto_now=True)
 
     class Meta:
-        ordering = ['student_name']
+        ordering = ["file_name"]
 
-    def __str__(self):
-        return f"{self.student_name} - {self.assignment.title}"
+    def __str__(self) -> str:
+        return f"{self.file_name} - {self.assignment.title}"

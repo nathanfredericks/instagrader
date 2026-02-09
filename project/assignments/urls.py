@@ -7,32 +7,33 @@ from .views import (
     AssignmentExportPDFView,
     AssignmentListCreateView,
     AssignmentUploadView,
-    EssayDetailView,
 )
 
 urlpatterns = [
-    path('', AssignmentListCreateView.as_view(), name='assignment_list_create'),
+    path("", AssignmentListCreateView.as_view(), name="assignment_list_create"),
     path(
-        '<uuid:assignment_id>/', AssignmentDetailView.as_view(), name='assignment_detail'
+        "<uuid:assignment_id>/",
+        AssignmentDetailView.as_view(),
+        name="assignment_detail",
     ),
     path(
-        '<uuid:assignment_id>/upload/',
+        "<uuid:assignment_id>/upload/",
         AssignmentUploadView.as_view(),
-        name='assignment_upload',
+        name="assignment_upload",
     ),
     path(
-        '<uuid:assignment_id>/essays/',
+        "<uuid:assignment_id>/essays/",
         AssignmentEssaysView.as_view(),
-        name='assignment_essays',
+        name="assignment_essays",
     ),
     path(
-        '<uuid:assignment_id>/export/csv/',
+        "<uuid:assignment_id>/export/csv/",
         AssignmentExportCSVView.as_view(),
-        name='assignment_export_csv',
+        name="assignment_export_csv",
     ),
     path(
-        '<uuid:assignment_id>/export/pdf/<uuid:essay_id>/',
+        "<uuid:assignment_id>/export/pdf/<uuid:essay_id>/",
         AssignmentExportPDFView.as_view(),
-        name='assignment_export_pdf',
+        name="assignment_export_pdf",
     ),
 ]

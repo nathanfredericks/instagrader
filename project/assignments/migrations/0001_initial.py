@@ -7,46 +7,124 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('rubrics', '0001_initial'),
+        ("rubrics", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Assignment',
+            name="Assignment",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255)),
-                ('prompt', models.TextField(help_text='Writing assignment prompt for AI')),
-                ('source_text', models.TextField(blank=True, help_text='Reference material for the essay')),
-                ('status', models.CharField(choices=[('draft', 'Draft'), ('grading', 'Grading'), ('review', 'Review'), ('completed', 'Completed')], default='draft', max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('rubric', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='assignments', to='rubrics.rubric')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='assignments', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                (
+                    "prompt",
+                    models.TextField(help_text="Writing assignment prompt for AI"),
+                ),
+                (
+                    "source_text",
+                    models.TextField(
+                        blank=True, help_text="Reference material for the essay"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("draft", "Draft"),
+                            ("grading", "Grading"),
+                            ("review", "Review"),
+                            ("completed", "Completed"),
+                        ],
+                        default="draft",
+                        max_length=20,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "rubric",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="assignments",
+                        to="rubrics.rubric",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="assignments",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
         migrations.CreateModel(
-            name='Essay',
+            name="Essay",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('student_name', models.CharField(help_text='From filename or metadata', max_length=255)),
-                ('original_file', models.FileField(upload_to='essays/')),
-                ('extracted_text', models.TextField(blank=True, help_text='Converted text (via MarkItDown later)')),
-                ('status', models.CharField(choices=[('pending', 'Pending'), ('processing', 'Processing'), ('graded', 'Graded'), ('reviewed', 'Reviewed')], default='pending', max_length=20)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('assignment', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='essays', to='assignments.assignment')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "student_name",
+                    models.CharField(
+                        help_text="From filename or metadata", max_length=255
+                    ),
+                ),
+                ("original_file", models.FileField(upload_to="essays/")),
+                (
+                    "extracted_text",
+                    models.TextField(
+                        blank=True, help_text="Converted text (via MarkItDown later)"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("pending", "Pending"),
+                            ("processing", "Processing"),
+                            ("graded", "Graded"),
+                            ("reviewed", "Reviewed"),
+                        ],
+                        default="pending",
+                        max_length=20,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "assignment",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="essays",
+                        to="assignments.assignment",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['student_name'],
+                "ordering": ["student_name"],
             },
         ),
     ]

@@ -1,20 +1,20 @@
-from django.contrib.auth import get_user_model
 from django.urls import reverse
 from faker import Faker
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-User = get_user_model()
+from accounts.models import User
+
 faker = Faker()
 Faker.seed(0)
 
 
 class AuthEndpointsTests(APITestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.password = "TestPassword123!"
         self.new_password = "NewPassword123!"
 
-    def build_register_payload(self):
+    def build_register_payload(self) -> dict[str, str]:
         return {
             "email": faker.unique.email(),
             "full_name": faker.name(),
@@ -22,7 +22,12 @@ class AuthEndpointsTests(APITestCase):
             "password_confirm": self.password,
         }
 
-    def create_user(self, email=None, full_name=None, password=None):
+    def create_user(
+        self,
+        email: str | None = None,
+        full_name: str | None = None,
+        password: str | None = None,
+    ) -> User:
         resolved_email = email or faker.unique.email()
         return User.objects.create_user(
             email=resolved_email,
@@ -31,7 +36,7 @@ class AuthEndpointsTests(APITestCase):
             password=password or self.password,
         )
 
-    def login(self, email, password):
+    def login(self, email: str, password: str):
         response = self.client.post(
             reverse("login"),
             {"email": email, "password": password},
@@ -39,7 +44,7 @@ class AuthEndpointsTests(APITestCase):
         )
         return response
 
-    def authenticate(self, access_token):
+    def authenticate(self, access_token: str) -> None:
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {access_token}")
 
     def test_register_success(self):
@@ -53,7 +58,7 @@ class AuthEndpointsTests(APITestCase):
         self.assertNotIn("password_confirm", response.data)
 
         user = User.objects.get(email=payload["email"])
-        self.assertEqual(user.username, payload["email"])
+        self.assertEqual(user.username, payload["email"])  # type: ignore[reportUnknownMemberType]
 
     def test_register_password_mismatch(self):
         payload = self.build_register_payload()
@@ -76,7 +81,7 @@ class AuthEndpointsTests(APITestCase):
         self.assertIn("email", response.data)
 
     def test_register_duplicate_email_case_insensitive(self):
-        existing = self.create_user(email="Teacher@Example.com")
+        self.create_user(email="Teacher@Example.com")
         payload = self.build_register_payload()
         payload["email"] = "TEACHER@EXAMPLE.COM"
         payload["password_confirm"] = payload["password"]

@@ -1,0 +1,12 @@
+{
+  "include": ["accounts", "rubrics", "assignments", "grading", "instagrader", "manage.py"],
+  "exclude": [
+    "**/__pycache__",
+    ".venv"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.13",
+  "typeCheckingMode": "strict",
+  "reportMissingTypeStubs": false
+}

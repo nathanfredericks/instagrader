@@ -6,42 +6,102 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('assignments', '0001_initial'),
-        ('rubrics', '0001_initial'),
+        ("assignments", "0001_initial"),
+        ("rubrics", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='GradingResult',
+            name="GradingResult",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('teacher_approved', models.BooleanField(default=False)),
-                ('approved_at', models.DateTimeField(blank=True, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('essay', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='grading_result', to='assignments.essay')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("teacher_approved", models.BooleanField(default=False)),
+                ("approved_at", models.DateTimeField(blank=True, null=True)),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "essay",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="grading_result",
+                        to="assignments.essay",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['-created_at'],
+                "ordering": ["-created_at"],
             },
         ),
         migrations.CreateModel(
-            name='CriterionScore',
+            name="CriterionScore",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('feedback', models.TextField(help_text='AI feedback for this criterion')),
-                ('teacher_feedback', models.TextField(blank=True, help_text='Teacher override feedback')),
-                ('criterion', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='scores', to='rubrics.rubriccriterion')),
-                ('level', models.ForeignKey(help_text='The level achieved (links to score)', on_delete=django.db.models.deletion.PROTECT, related_name='scores', to='rubrics.criterionlevel')),
-                ('teacher_level', models.ForeignKey(blank=True, help_text='Teacher override level', null=True, on_delete=django.db.models.deletion.PROTECT, related_name='teacher_scores', to='rubrics.criterionlevel')),
-                ('grading_result', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='criterion_scores', to='grading.gradingresult')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                (
+                    "feedback",
+                    models.TextField(help_text="AI feedback for this criterion"),
+                ),
+                (
+                    "teacher_feedback",
+                    models.TextField(blank=True, help_text="Teacher override feedback"),
+                ),
+                (
+                    "criterion",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="scores",
+                        to="rubrics.rubriccriterion",
+                    ),
+                ),
+                (
+                    "level",
+                    models.ForeignKey(
+                        help_text="The level achieved (links to score)",
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="scores",
+                        to="rubrics.criterionlevel",
+                    ),
+                ),
+                (
+                    "teacher_level",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Teacher override level",
+                        null=True,
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="teacher_scores",
+                        to="rubrics.criterionlevel",
+                    ),
+                ),
+                (
+                    "grading_result",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="criterion_scores",
+                        to="grading.gradingresult",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['criterion__order'],
+                "ordering": ["criterion__order"],
             },
         ),
     ]
