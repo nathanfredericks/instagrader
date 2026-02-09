@@ -1,6 +1,8 @@
 import uuid
 
-from drf_spectacular.utils import extend_schema  # type: ignore[reportUnknownVariableType]
+from drf_spectacular.utils import (
+    extend_schema,  # type: ignore[reportUnknownVariableType]
+)
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,7 +10,6 @@ from rest_framework.views import APIView
 from accounts.types import AuthenticatedRequest
 from assignments.models import Essay
 from assignments.serializers import EssaySerializer
-
 from instagrader.schema import error_responses
 
 

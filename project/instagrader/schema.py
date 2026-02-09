@@ -1,7 +1,8 @@
-from drf_spectacular.utils import inline_serializer  # type: ignore[reportUnknownVariableType]
+from drf_spectacular.utils import (
+    inline_serializer,  # type: ignore[reportUnknownVariableType]
+)
 from rest_framework import serializers
 from rest_framework.serializers import Serializer
-
 
 DetailResponseSerializer: Serializer[dict[str, str]] = inline_serializer(  # type: ignore[reportUnknownVariableType]
     name="DetailResponse",

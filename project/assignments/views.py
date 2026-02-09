@@ -9,7 +9,11 @@ from django.core.files.uploadedfile import SimpleUploadedFile, UploadedFile
 from django.db.models import Count
 from django.http import HttpResponse
 from drf_spectacular.types import OpenApiTypes
-from drf_spectacular.utils import OpenApiExample, extend_schema, inline_serializer  # type: ignore[reportUnknownVariableType]
+from drf_spectacular.utils import (  # type: ignore[reportUnknownVariableType]
+    OpenApiExample,
+    extend_schema,
+    inline_serializer,
+)
 from rest_framework import serializers as drf_serializers
 from rest_framework import status
 from rest_framework.response import Response
@@ -129,7 +133,9 @@ class AssignmentDetailView(APIView):
     @extend_schema(
         tags=["assignments"],
         operation_id="assignments_assignment_partial_update",
-        description="Partially update an assignment's title, prompt, source_text, or rubric.",
+        description=(
+            "Partially update an assignment's title, prompt, source_text, or rubric."
+        ),
         request=AssignmentSerializer,
         responses={
             200: AssignmentSerializer,
@@ -175,8 +181,9 @@ class AssignmentUploadView(APIView):
         tags=["assignments"],
         operation_id="assignments_essay_upload",
         description=(
-            "Upload essay files to an assignment. Accepts individual PDF, DOCX, or TXT files, "
-            "or a ZIP archive containing multiple files. Triggers async text extraction."
+            "Upload essay files to an assignment. Accepts individual"
+            " PDF, DOCX, or TXT files, or a ZIP archive containing"
+            " multiple files. Triggers async text extraction."
         ),
         request={
             "multipart/form-data": inline_serializer(
@@ -184,7 +191,9 @@ class AssignmentUploadView(APIView):
                 fields={
                     "files": drf_serializers.ListField(
                         child=drf_serializers.FileField(),
-                        help_text="One or more files (PDF, DOCX, TXT) or a ZIP archive.",
+                        help_text=(
+                            "One or more files (PDF, DOCX, TXT) or a ZIP archive."
+                        ),
                     ),
                 },
             ),

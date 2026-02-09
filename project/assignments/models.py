@@ -4,8 +4,9 @@ import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from accounts.models import User
 from django.db import models
+
+from accounts.models import User
 from rubrics.models import Rubric
 
 

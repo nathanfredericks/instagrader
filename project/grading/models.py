@@ -1,8 +1,9 @@
 import uuid
 from datetime import datetime
 
-from assignments.models import Essay
 from django.db import models
+
+from assignments.models import Essay
 from rubrics.models import CriterionLevel, RubricCriterion
 
 

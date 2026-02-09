@@ -1,7 +1,11 @@
 import uuid
 
 from django.db.models import Case, IntegerField, Value, When
-from drf_spectacular.utils import OpenApiExample, extend_schema, inline_serializer  # type: ignore[reportUnknownVariableType]
+from drf_spectacular.utils import (
+    OpenApiExample,
+    extend_schema,  # type: ignore[reportUnknownVariableType]
+    inline_serializer,  # type: ignore[reportUnknownVariableType]
+)
 from rest_framework import serializers, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -227,7 +231,10 @@ class CriterionReorderView(APIView):
     @extend_schema(
         tags=["rubrics"],
         operation_id="rubrics_criterion_reorder",
-        description="Reorder criteria within a rubric. Provide all criterion UUIDs in desired order.",
+        description=(
+            "Reorder criteria within a rubric."
+            " Provide all criterion UUIDs in desired order."
+        ),
         request=inline_serializer(
             name="CriterionReorderRequest",
             fields={
