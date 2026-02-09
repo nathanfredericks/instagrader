@@ -3,7 +3,7 @@ name: Ruff Format
 on:
   push:
     paths:
-      - "project/**"
+      - "backend/**"
 
 permissions:
   contents: write
@@ -17,9 +17,9 @@ jobs:
       - uses: astral-sh/setup-uv@v7
 
       - name: Run ruff format
-        run: uvx ruff format project/
+        run: uvx ruff format backend/
 
       - uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Format"
-          file_pattern: "project/**/*.py"
+          file_pattern: "backend/**/*.py"

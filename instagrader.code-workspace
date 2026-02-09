@@ -4,13 +4,19 @@
 			"path": "./model-poc"
 		},
 		{
-			"path": "./project"
+			"path": "./frontend"
+		},
+		{
+			"path": "./backend"
 		},
 		{
 			"path": "./dataset"
 		},
 		{
 			"path": "./proposal"
+		},
+		{
+			"path": ".github"
 		}
 	],
 	"settings": {}

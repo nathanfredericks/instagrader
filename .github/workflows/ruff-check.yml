@@ -3,10 +3,10 @@ name: Ruff Check
 on:
   push:
     paths:
-      - "project/**"
+      - "backend/**"
   pull_request:
     paths:
-      - "project/**"
+      - "backend/**"
 
 jobs:
   ruff-check:
@@ -16,5 +16,5 @@ jobs:
 
       - uses: astral-sh/ruff-action@v3
         with:
-          src: "./project"
+          src: "./backend"
           args: "check"

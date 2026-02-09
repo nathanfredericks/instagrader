@@ -3,17 +3,17 @@ name: Test
 on:
   push:
     paths:
-      - "project/**"
+      - "backend/**"
   pull_request:
     paths:
-      - "project/**"
+      - "backend/**"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: project
+        working-directory: backend
     steps:
       - uses: actions/checkout@v4
 
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: "3.13"
           enable-cache: true
-          cache-dependency-glob: "project/uv.lock"
+          cache-dependency-glob: "backend/uv.lock"
 
       - run: uv sync
 
