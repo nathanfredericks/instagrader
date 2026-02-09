@@ -1,0 +1,56 @@
+name: API Types
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "frontend/src/api/schema.d.ts"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "frontend/src/api/schema.d.ts"
+
+jobs:
+  api-types:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "backend/uv.lock"
+
+      - run: uv sync
+        working-directory: backend
+
+      - name: Start backend
+        working-directory: backend
+        run: uv run python manage.py runserver &
+
+      - name: Wait for backend
+        run: |
+          for i in $(seq 1 30); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/schema/ | grep -q 200; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Backend failed to start"
+          exit 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: "frontend/package-lock.json"
+
+      - run: npm ci
+        working-directory: frontend
+
+      - run: npm run generate-api
+        working-directory: frontend
+
+      - name: Check types are in sync
+        run: git diff --exit-code frontend/src/api/schema.d.ts
