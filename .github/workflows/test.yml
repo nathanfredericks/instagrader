@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+    paths:
+      - "project/**"
+  pull_request:
+    paths:
+      - "project/**"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: project
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: "3.13"
+          enable-cache: true
+          cache-dependency-glob: "project/uv.lock"
+
+      - run: uv sync
+
+      - name: Run tests
+        run: uv run python manage.py test

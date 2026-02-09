@@ -1,0 +1,20 @@
+name: Ruff Check
+
+on:
+  push:
+    paths:
+      - "project/**"
+  pull_request:
+    paths:
+      - "project/**"
+
+jobs:
+  ruff-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/ruff-action@v3
+        with:
+          src: "./project"
+          args: "check"

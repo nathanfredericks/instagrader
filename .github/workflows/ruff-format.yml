@@ -1,0 +1,25 @@
+name: Ruff Format
+
+on:
+  push:
+    paths:
+      - "project/**"
+
+permissions:
+  contents: write
+
+jobs:
+  ruff-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v7
+
+      - name: Run ruff format
+        run: uvx ruff format project/
+
+      - uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: "Format"
+          file_pattern: "project/**/*.py"
