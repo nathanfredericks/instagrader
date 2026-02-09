@@ -1,22 +1,28 @@
 {
 	"folders": [
 		{
-			"path": "./model-poc"
-		},
-		{
-			"path": "./frontend"
-		},
-		{
-			"path": "./backend"
-		},
-		{
-			"path": "./dataset"
-		},
-		{
-			"path": "./proposal"
-		},
-		{
+			"name": ".github",
 			"path": ".github"
+		},
+		{
+			"name": "proposal",
+			"path": "proposal"
+		},
+		{
+			"name": "dataset",
+			"path": "dataset"
+		},
+		{
+			"name": "model-poc",
+			"path": "model-poc"
+		},
+		{
+			"name": "frontend",
+			"path": "frontend"
+		},
+		{
+			"name": "backend",
+			"path": "backend"
 		}
 	],
 	"settings": {}
