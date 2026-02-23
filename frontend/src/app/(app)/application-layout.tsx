@@ -23,6 +23,7 @@ import {
 } from '@/components/sidebar'
 import { SidebarLayout } from '@/components/sidebar-layout'
 import { getEvents } from '@/data'
+import { logout } from '@/lib/auth'
 import {
   ArrowRightStartOnRectangleIcon,
   ChevronDownIcon,
@@ -60,7 +61,7 @@ function AccountDropdownMenu({ anchor }: { anchor: 'top start' | 'bottom end' })
         <DropdownLabel>Share feedback</DropdownLabel>
       </DropdownItem>
       <DropdownDivider />
-      <DropdownItem href="/login">
+      <DropdownItem onClick={() => logout()}>
         <ArrowRightStartOnRectangleIcon />
         <DropdownLabel>Sign out</DropdownLabel>
       </DropdownItem>

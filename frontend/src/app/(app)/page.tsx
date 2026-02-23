@@ -1,16 +1,48 @@
+'use client'
+
 import { Stat } from '@/app/stat'
 import { Avatar } from '@/components/avatar'
 import { Heading, Subheading } from '@/components/heading'
 import { Select } from '@/components/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
-import { getRecentOrders } from '@/data'
+import { useAuth } from '@/contexts/AuthContext'
+import { useEffect, useState } from 'react'
 
-export default async function Home() {
-  let orders = await getRecentOrders()
+type Order = {
+  id: string
+  url: string
+  date: string
+  customer: { name: string }
+  event: { name: string; thumbUrl: string }
+  amount: { usd: string }
+}
+
+export default function Home() {
+  const { user, loading } = useAuth()
+  const [orders, setOrders] = useState<Order[]>([])
+
+  useEffect(() => {
+    // Load mock data for now
+    setOrders([])
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <div className="text-zinc-500">Loading...</div>
+      </div>
+    )
+  }
+
+  const greeting = user?.first_name
+    ? `Good afternoon, ${user.first_name}`
+    : user?.email
+      ? `Good afternoon, ${user.email.split('@')[0]}`
+      : 'Good afternoon'
 
   return (
     <>
-      <Heading>Good afternoon, Erica</Heading>
+      <Heading>{greeting}</Heading>
       <div className="mt-8 flex items-end justify-between">
         <Subheading>Overview</Subheading>
         <div>

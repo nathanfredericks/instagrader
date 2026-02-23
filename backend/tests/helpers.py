@@ -42,7 +42,15 @@ class BaseTestMixin:
 
     def auth_user(self, user: User) -> None:
         response = self.login(user.email, self.password)
-        self.authenticate(response.data["access"])  # type: ignore[reportUnknownMemberType, reportUnknownArgumentType]
+        # Extract access token from cookie and set as Bearer token for tests
+        # This allows tests to use client.credentials() to clear auth
+        access_token = response.cookies.get("access_token")
+        if access_token:
+            self.authenticate(access_token.value)  # type: ignore[reportUnknownArgumentType]
+            # Also clear cookies so client.credentials() fully clears auth
+            # Note: cookies are set on the client after login, so we clear them
+            # to ensure Bearer token is the only auth method in tests
+            self.client.cookies.clear()
 
     def create_rubric(self, user: User, **kwargs: Any) -> Rubric:
         defaults: dict[str, Any] = {

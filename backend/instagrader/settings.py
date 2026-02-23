@@ -145,7 +145,7 @@ AUTH_USER_MODEL = "accounts.User"
 # Django REST Framework settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "accounts.authentication.CookieJWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -160,10 +160,17 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
+# JWT Cookie settings
+JWT_AUTH_COOKIE = "access_token"
+JWT_AUTH_REFRESH_COOKIE = "refresh_token"
+JWT_AUTH_SECURE = False  # Set to True in production with HTTPS
+JWT_AUTH_SAMESITE = "Lax"  # Provides CSRF protection
+
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # Next.js dev server
 ]
+CORS_ALLOW_CREDENTIALS = True  # Required for sending cookies with requests
 
 # DRF Spectacular settings
 SPECTACULAR_SETTINGS = {

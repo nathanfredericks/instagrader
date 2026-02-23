@@ -136,10 +136,27 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * @description Takes a set of user credentials and returns an access and refresh JSON web
-         *     token pair to prove the authentication of those credentials.
+         * @description Custom login view that sets JWT tokens as HTTP-only cookies
+         *     instead of returning them in the response body.
          */
         post: operations["auth_login_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/auth/logout/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Logout by clearing authentication cookies. */
+        post: operations["auth_logout"];
         delete?: never;
         options?: never;
         head?: never;
@@ -175,8 +192,8 @@ export interface paths {
         get?: never;
         put?: never;
         /**
-         * @description Takes a refresh type JSON web token and returns an access type JSON web
-         *     token if the refresh token is valid.
+         * @description Custom token refresh view that reads the refresh token from cookies
+         *     and sets the new access token as an HTTP-only cookie.
          */
         post: operations["auth_refresh_create"];
         delete?: never;
@@ -500,6 +517,10 @@ export interface components {
          * @enum {string}
          */
         EssayStatusEnum: "pending" | "processing" | "graded" | "reviewed" | "failed";
+        LogoutSuccess: {
+            /** @default Successfully logged out. */
+            detail: string;
+        };
         /** @description Serializer for assignment details. */
         PatchedAssignment: {
             /** Format: uuid */
@@ -1055,6 +1076,25 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TokenObtainPair"];
+                };
+            };
+        };
+    };
+    auth_logout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LogoutSuccess"];
                 };
             };
         };

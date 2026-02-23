@@ -1,0 +1,1773 @@
+openapi: 3.0.3
+info:
+  title: InstaGrader API
+  version: 1.0.0
+  description: API for the InstaGrader essay grading platform
+paths:
+  /api/assignments/:
+    get:
+      operationId: assignments_assignment_list
+      description: List all assignments owned by the authenticated user.
+      tags:
+      - assignments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssignmentList'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+    post:
+      operationId: assignments_assignment_create
+      description: Create a new assignment linked to a rubric.
+      tags:
+      - assignments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Assignment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Assignment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Assignment'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                InvalidRubricOwner:
+                  value:
+                    rubric:
+                    - You can only use your own rubrics.
+                  summary: Invalid rubric owner
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+  /api/assignments/{assignment_id}/:
+    get:
+      operationId: assignments_assignment_retrieve
+      description: Retrieve an assignment with its nested essays.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    patch:
+      operationId: assignments_assignment_partial_update
+      description: Partially update an assignment's title, prompt, source_text, or
+        rubric.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAssignment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAssignment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAssignment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    delete:
+      operationId: assignments_assignment_delete
+      description: Delete an assignment and all its essays.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      responses:
+        '204':
+          description: No response body
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/assignments/{assignment_id}/essays/:
+    get:
+      operationId: assignments_essay_list
+      description: List all essays in an assignment.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EssayList'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/assignments/{assignment_id}/export/csv/:
+    get:
+      operationId: assignments_export_csv
+      description: Export assignment grades as a CSV file download.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      responses:
+        '200':
+          content:
+            text/csv:
+              schema:
+                type: string
+                format: binary
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/assignments/{assignment_id}/export/pdf/{essay_id}/:
+    get:
+      operationId: assignments_export_file
+      description: Download an essay's original uploaded file.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      responses:
+        '200':
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/assignments/{assignment_id}/upload/:
+    post:
+      operationId: assignments_essay_upload
+      description: Upload essay files to an assignment. Accepts individual PDF, DOCX,
+        or TXT files, or a ZIP archive containing multiple files. Triggers async text
+        extraction.
+      parameters:
+      - in: path
+        name: assignment_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - assignments
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AssignmentUploadRequest'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EssayList'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+              examples:
+                NoFilesProvided:
+                  value:
+                    detail: No files provided.
+                  summary: No files provided
+                InvalidZIPFile:
+                  value:
+                    detail: Invalid or corrupt ZIP file.
+                  summary: Invalid ZIP file
+                EmptyZIPFile:
+                  value:
+                    detail: ZIP contains no valid files.
+                  summary: Empty ZIP file
+                EmptyFile:
+                  value:
+                    detail: Empty file.
+                  summary: Empty file
+                UnsupportedFileType:
+                  value:
+                    detail: 'Unsupported file type: .jpg'
+                  summary: Unsupported file type
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/auth/change-password/:
+    post:
+      operationId: auth_change_password
+      description: Change the authenticated user's password.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordSuccess'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+              examples:
+                IncorrectOldPassword:
+                  value:
+                    old_password:
+                    - Old password is incorrect.
+                  summary: Incorrect old password
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+  /api/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: |-
+        Custom login view that sets JWT tokens as HTTP-only cookies
+        instead of returning them in the response body.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/logout/:
+    post:
+      operationId: auth_logout
+      description: Logout by clearing authentication cookies.
+      tags:
+      - auth
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutSuccess'
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      description: Get or update current user profile.
+      tags:
+      - auth
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: auth_me_update
+      description: Get or update current user profile.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: auth_me_partial_update
+      description: Get or update current user profile.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/auth/refresh/:
+    post:
+      operationId: auth_refresh_create
+      description: |-
+        Custom token refresh view that reads the refresh token from cookies
+        and sets the new access token as an HTTP-only cookie.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: auth_register_create
+      description: Register a new teacher account.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+        required: true
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+  /api/essays/{essay_id}/:
+    get:
+      operationId: essays_essay_retrieve
+      description: Retrieve an essay with its extracted text content.
+      parameters:
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - essays
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Essay'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/essays/{essay_id}/delete/:
+    delete:
+      operationId: essays_essay_delete
+      description: Delete an essay from its assignment.
+      parameters:
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - essays
+      responses:
+        '204':
+          description: No response body
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/essays/{essay_id}/grading/:
+    get:
+      operationId: essays_grading_retrieve
+      description: Get grading result for an essay. Not yet implemented.
+      parameters:
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - essays
+      responses:
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '501':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    patch:
+      operationId: essays_grading_partial_update
+      description: Update grading result for an essay. Not yet implemented.
+      parameters:
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - essays
+      responses:
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '501':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/essays/{essay_id}/grading/approve/:
+    post:
+      operationId: essays_grading_approve
+      description: Approve an AI grading result. Not yet implemented.
+      parameters:
+      - in: path
+        name: essay_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - essays
+      responses:
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '501':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/:
+    get:
+      operationId: rubrics_rubric_list
+      description: List all rubrics owned by the authenticated user.
+      tags:
+      - rubrics
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RubricList'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+    post:
+      operationId: rubrics_rubric_create
+      description: Create a new rubric.
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rubric'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Rubric'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Rubric'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/:
+    get:
+      operationId: rubrics_rubric_retrieve
+      description: Retrieve a rubric with nested criteria and levels.
+      parameters:
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    patch:
+      operationId: rubrics_rubric_partial_update
+      description: Partially update a rubric's title or description.
+      parameters:
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRubric'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRubric'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRubric'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rubric'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    delete:
+      operationId: rubrics_rubric_delete
+      description: Delete a rubric. Fails if any assignment references it.
+      parameters:
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      responses:
+        '204':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+              examples:
+                RubricInUse:
+                  value:
+                    detail: Cannot delete rubric that is in use by assignments.
+                  summary: Rubric in use
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/criteria/:
+    post:
+      operationId: rubrics_criterion_create
+      description: Add a criterion to a rubric.
+      parameters:
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RubricCriterion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RubricCriterion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RubricCriterion'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RubricCriterion'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/criteria/{criterion_id}/:
+    patch:
+      operationId: rubrics_criterion_partial_update
+      description: Partially update a criterion's name or order.
+      parameters:
+      - in: path
+        name: criterion_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRubricCriterion'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRubricCriterion'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRubricCriterion'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RubricCriterion'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    delete:
+      operationId: rubrics_criterion_delete
+      description: Delete a criterion and all its levels.
+      parameters:
+      - in: path
+        name: criterion_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      responses:
+        '204':
+          description: No response body
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/criteria/{criterion_id}/levels/:
+    post:
+      operationId: rubrics_level_create
+      description: Add a scoring level to a criterion.
+      parameters:
+      - in: path
+        name: criterion_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriterionLevel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CriterionLevel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CriterionLevel'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriterionLevel'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/criteria/{criterion_id}/levels/{level_id}/:
+    patch:
+      operationId: rubrics_level_partial_update
+      description: Partially update a scoring level's score or descriptor.
+      parameters:
+      - in: path
+        name: criterion_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: level_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCriterionLevel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCriterionLevel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCriterionLevel'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CriterionLevel'
+          description: ''
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationErrorResponse'
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+    delete:
+      operationId: rubrics_level_delete
+      description: Delete a scoring level.
+      parameters:
+      - in: path
+        name: criterion_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: level_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      responses:
+        '204':
+          description: No response body
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+  /api/rubrics/{rubric_id}/criteria/reorder/:
+    post:
+      operationId: rubrics_criterion_reorder
+      description: Reorder criteria within a rubric. Provide all criterion UUIDs in
+        desired order.
+      parameters:
+      - in: path
+        name: rubric_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - rubrics
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CriterionReorderRequest'
+            examples:
+              ReorderRequest:
+                value:
+                  order:
+                  - a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                  - b2c3d4e5-f6a7-8901-bcde-f12345678901
+                summary: Reorder request
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CriterionReorderRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CriterionReorderRequest'
+        required: true
+      responses:
+        '200':
+          description: No response body
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+              examples:
+                EmptyOrderList:
+                  value:
+                    detail: Order list cannot be empty.
+                  summary: Empty order list
+                DuplicateIDs:
+                  value:
+                    detail: Duplicate IDs in order list.
+                  summary: Duplicate IDs
+                IncompleteOrderList:
+                  value:
+                    detail: Order list must contain exactly all criteria IDs.
+                  summary: Incomplete order list
+          description: ''
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedResponse'
+          description: ''
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailResponse'
+          description: ''
+components:
+  schemas:
+    Assignment:
+      type: object
+      description: Serializer for assignment details.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        rubric:
+          type: string
+          format: uuid
+        title:
+          type: string
+          maxLength: 255
+        prompt:
+          type: string
+          description: Writing assignment prompt for AI
+        source_text:
+          type: string
+          description: Reference material for the essay
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AssignmentStatusEnum'
+          readOnly: true
+        essays:
+          type: array
+          items:
+            $ref: '#/components/schemas/EssayList'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - essays
+      - id
+      - prompt
+      - rubric
+      - status
+      - title
+      - updated_at
+    AssignmentList:
+      type: object
+      description: Serializer for assignment list.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AssignmentStatusEnum'
+          readOnly: true
+        essay_count:
+          type: integer
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - essay_count
+      - id
+      - status
+      - title
+      - updated_at
+    AssignmentStatusEnum:
+      enum:
+      - draft
+      - grading
+      - review
+      - completed
+      type: string
+      description: |-
+        * `draft` - Draft
+        * `grading` - Grading
+        * `review` - Review
+        * `completed` - Completed
+    AssignmentUploadRequest:
+      type: object
+      properties:
+        files:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: One or more files (PDF, DOCX, TXT) or a ZIP archive.
+      required:
+      - files
+    ChangePassword:
+      type: object
+      description: Serializer for password change.
+      properties:
+        old_password:
+          type: string
+        new_password:
+          type: string
+      required:
+      - new_password
+      - old_password
+    ChangePasswordSuccess:
+      type: object
+      properties:
+        detail:
+          type: string
+          default: Password changed successfully.
+    CriterionLevel:
+      type: object
+      description: Serializer for criterion levels.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        descriptor:
+          type: string
+      required:
+      - descriptor
+      - id
+      - score
+    CriterionReorderRequest:
+      type: object
+      properties:
+        order:
+          type: array
+          items:
+            type: string
+            format: uuid
+          description: List of all criterion UUIDs in the desired order.
+      required:
+      - order
+    DetailResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+      required:
+      - detail
+    Essay:
+      type: object
+      description: Serializer for essay details.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        file_name:
+          type: string
+          description: Original filename of the uploaded essay
+          maxLength: 255
+        original_file:
+          type: string
+          format: uri
+        extracted_text:
+          type: string
+          readOnly: true
+          description: Converted text (via MarkItDown later)
+        status:
+          $ref: '#/components/schemas/EssayStatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - extracted_text
+      - file_name
+      - id
+      - original_file
+      - updated_at
+    EssayList:
+      type: object
+      description: Serializer for essay list (without extracted text).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        file_name:
+          type: string
+          description: Original filename of the uploaded essay
+          maxLength: 255
+        status:
+          $ref: '#/components/schemas/EssayStatusEnum'
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - file_name
+      - id
+    EssayStatusEnum:
+      enum:
+      - pending
+      - processing
+      - graded
+      - reviewed
+      - failed
+      type: string
+      description: |-
+        * `pending` - Pending
+        * `processing` - Processing
+        * `graded` - Graded
+        * `reviewed` - Reviewed
+        * `failed` - Failed
+    LogoutSuccess:
+      type: object
+      properties:
+        detail:
+          type: string
+          default: Successfully logged out.
+    PatchedAssignment:
+      type: object
+      description: Serializer for assignment details.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        rubric:
+          type: string
+          format: uuid
+        title:
+          type: string
+          maxLength: 255
+        prompt:
+          type: string
+          description: Writing assignment prompt for AI
+        source_text:
+          type: string
+          description: Reference material for the essay
+        status:
+          allOf:
+          - $ref: '#/components/schemas/AssignmentStatusEnum'
+          readOnly: true
+        essays:
+          type: array
+          items:
+            $ref: '#/components/schemas/EssayList'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedCriterionLevel:
+      type: object
+      description: Serializer for criterion levels.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        score:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        descriptor:
+          type: string
+    PatchedRubric:
+      type: object
+      description: Serializer for rubrics with nested criteria.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        criteria:
+          type: array
+          items:
+            $ref: '#/components/schemas/RubricCriterion'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedRubricCriterion:
+      type: object
+      description: Serializer for rubric criteria with nested levels.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriterionLevel'
+          readOnly: true
+    PatchedUser:
+      type: object
+      description: Serializer for user profile.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        full_name:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    Register:
+      type: object
+      description: Serializer for user registration.
+      properties:
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        full_name:
+          type: string
+          maxLength: 255
+        password:
+          type: string
+          writeOnly: true
+        password_confirm:
+          type: string
+          writeOnly: true
+      required:
+      - email
+      - password
+      - password_confirm
+    Rubric:
+      type: object
+      description: Serializer for rubrics with nested criteria.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        criteria:
+          type: array
+          items:
+            $ref: '#/components/schemas/RubricCriterion'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - criteria
+      - id
+      - title
+      - updated_at
+    RubricCriterion:
+      type: object
+      description: Serializer for rubric criteria with nested levels.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        order:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/CriterionLevel'
+          readOnly: true
+      required:
+      - id
+      - levels
+      - name
+    RubricList:
+      type: object
+      description: Serializer for rubric list (without nested criteria).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - title
+      - updated_at
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    UnauthorizedResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+          default: Authentication credentials were not provided.
+        code:
+          type: string
+          default: not_authenticated
+    User:
+      type: object
+      description: Serializer for user profile.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        full_name:
+          type: string
+          maxLength: 255
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - email
+      - id
+      - updated_at
+    ValidationErrorResponse:
+      type: object
+      properties:
+        field_name:
+          type: array
+          items:
+            type: string
+          description: Each field maps to a list of validation error strings.
+      required:
+      - field_name
+tags:
+- name: auth
+  description: Authentication and user management
+- name: rubrics
+  description: Rubric CRUD and nested criteria/levels
+- name: assignments
+  description: Assignment CRUD, upload, and export
+- name: essays
+  description: Essay detail, delete, and grading
