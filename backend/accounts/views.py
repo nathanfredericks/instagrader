@@ -248,7 +248,9 @@ class LogoutView(APIView):
         responses={
             200: inline_serializer(
                 name="LogoutSuccess",
-                fields={"detail": serializers.CharField(default="Successfully logged out.")},
+                fields={
+                    "detail": serializers.CharField(default="Successfully logged out.")
+                },
             ),
         },
     )
