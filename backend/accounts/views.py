@@ -199,8 +199,8 @@ class CookieTokenRefreshView(TokenRefreshView):
             )
 
         # Create serializer with cookie data
-        from rest_framework_simplejwt.serializers import TokenRefreshSerializer
         from rest_framework_simplejwt.exceptions import TokenError
+        from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 
         try:
             serializer = TokenRefreshSerializer(data=data)

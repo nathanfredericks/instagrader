@@ -357,8 +357,9 @@ class CookieAuthTests(APITestCase):
 
     def test_expired_cookie_rejected(self):
         """Test that expired token cookie is rejected"""
-        from rest_framework_simplejwt.tokens import RefreshToken
         from datetime import timedelta
+
+        from rest_framework_simplejwt.tokens import RefreshToken
 
         user = self.create_user()
 
