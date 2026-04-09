@@ -283,8 +283,7 @@ class RubricStructureView(APIView):
         tags=["rubrics"],
         operation_id="rubrics_rubric_structure_update",
         description=(
-            "Replace a rubric's full structure "
-            "(name, criteria, levels) atomically."
+            "Replace a rubric's full structure (name, criteria, levels) atomically."
         ),
         request=RubricStructureSerializer,
         responses={

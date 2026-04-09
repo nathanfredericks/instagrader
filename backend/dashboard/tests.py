@@ -83,15 +83,9 @@ class DashboardTests(BaseTestMixin, APITestCase):
         self.assertEqual(data["essay_status_counts"]["processing"], 0)
 
     def test_assignment_status_counts(self):
-        self.create_assignment(
-            self.user, self.rubric, status=Assignment.Status.DRAFT
-        )
-        self.create_assignment(
-            self.user, self.rubric, status=Assignment.Status.DRAFT
-        )
-        self.create_assignment(
-            self.user, self.rubric, status=Assignment.Status.GRADING
-        )
+        self.create_assignment(self.user, self.rubric, status=Assignment.Status.DRAFT)
+        self.create_assignment(self.user, self.rubric, status=Assignment.Status.DRAFT)
+        self.create_assignment(self.user, self.rubric, status=Assignment.Status.GRADING)
         self.create_assignment(
             self.user, self.rubric, status=Assignment.Status.COMPLETED
         )
@@ -119,9 +113,7 @@ class DashboardTests(BaseTestMixin, APITestCase):
 
     def test_only_returns_own_data(self):
         # Create data for the other user
-        other_assignment = self.create_assignment(
-            self.other_user, self.other_rubric
-        )
+        other_assignment = self.create_assignment(self.other_user, self.other_rubric)
         self.create_essay(other_assignment, status=Essay.Status.GRADED)
 
         # Create data for the authenticated user
@@ -140,9 +132,7 @@ class DashboardTests(BaseTestMixin, APITestCase):
         assignment = self.create_assignment(
             self.user, self.rubric, status=Assignment.Status.REVIEW
         )
-        essay = self.create_essay(
-            assignment, status=Essay.Status.GRADED
-        )
+        essay = self.create_essay(assignment, status=Essay.Status.GRADED)
 
         response = self.client.get(self.url)
         data = response.json()
@@ -152,17 +142,13 @@ class DashboardTests(BaseTestMixin, APITestCase):
         ]
         self.assertEqual(len(graded_items), 1)
         self.assertEqual(graded_items[0]["essay_file_name"], essay.file_name)
-        self.assertEqual(
-            graded_items[0]["assignment_title"], assignment.title
-        )
+        self.assertEqual(graded_items[0]["assignment_title"], assignment.title)
 
     def test_recent_activity_includes_reviewed_essays(self):
         assignment = self.create_assignment(
             self.user, self.rubric, status=Assignment.Status.REVIEW
         )
-        essay = self.create_essay(
-            assignment, status=Essay.Status.REVIEWED
-        )
+        essay = self.create_essay(assignment, status=Essay.Status.REVIEWED)
         GradingResult.objects.create(
             essay=essay,
             teacher_approved=True,
@@ -173,14 +159,10 @@ class DashboardTests(BaseTestMixin, APITestCase):
         data = response.json()
 
         reviewed_items = [
-            a
-            for a in data["recent_activity"]
-            if a["type"] == "essay_reviewed"
+            a for a in data["recent_activity"] if a["type"] == "essay_reviewed"
         ]
         self.assertEqual(len(reviewed_items), 1)
-        self.assertEqual(
-            reviewed_items[0]["essay_file_name"], essay.file_name
-        )
+        self.assertEqual(reviewed_items[0]["essay_file_name"], essay.file_name)
 
     def test_recent_activity_includes_completed_assignments(self):
         assignment = self.create_assignment(
@@ -191,21 +173,15 @@ class DashboardTests(BaseTestMixin, APITestCase):
         data = response.json()
 
         completed_items = [
-            a
-            for a in data["recent_activity"]
-            if a["type"] == "assignment_completed"
+            a for a in data["recent_activity"] if a["type"] == "assignment_completed"
         ]
         self.assertEqual(len(completed_items), 1)
-        self.assertEqual(
-            completed_items[0]["assignment_title"], assignment.title
-        )
+        self.assertEqual(completed_items[0]["assignment_title"], assignment.title)
         self.assertIsNone(completed_items[0]["essay_id"])
 
     def test_recent_activity_includes_failed_essays(self):
         assignment = self.create_assignment(self.user, self.rubric)
-        essay = self.create_essay(
-            assignment, status=Essay.Status.FAILED
-        )
+        essay = self.create_essay(assignment, status=Essay.Status.FAILED)
 
         response = self.client.get(self.url)
         data = response.json()
@@ -359,9 +335,7 @@ class DashboardTests(BaseTestMixin, APITestCase):
         a2 = self.create_assignment(
             self.user, self.rubric, status=Assignment.Status.REVIEW
         )
-        self.create_assignment(
-            self.user, self.rubric, status=Assignment.Status.DRAFT
-        )
+        self.create_assignment(self.user, self.rubric, status=Assignment.Status.DRAFT)
         self.create_assignment(
             self.user, self.rubric, status=Assignment.Status.COMPLETED
         )
@@ -381,9 +355,7 @@ class DashboardTests(BaseTestMixin, APITestCase):
         self.assertIn(str(a2.id), ids)
 
         # Check a2's counts
-        a2_data = next(
-            a for a in data["active_assignments"] if a["id"] == str(a2.id)
-        )
+        a2_data = next(a for a in data["active_assignments"] if a["id"] == str(a2.id))
         self.assertEqual(a2_data["total_essays"], 2)
         self.assertEqual(a2_data["reviewed_count"], 1)
         self.assertEqual(a2_data["graded_count"], 1)

@@ -89,9 +89,7 @@ def save_rubric_structure(rubric: Rubric, payload: dict[str, Any]) -> Rubric:
                     order=criterion_data["order"],
                 )
 
-            existing_levels = {
-                str(lv.id): lv for lv in criterion.levels.all()
-            }
+            existing_levels = {str(lv.id): lv for lv in criterion.levels.all()}
             seen_level_ids: set[str] = set()
 
             for level_data in criterion_data["levels"]:

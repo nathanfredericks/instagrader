@@ -169,9 +169,7 @@ class TestParseModelResponse(GradingTestMixin, TestCase):
 
         fresh_criteria = list(self.rubric.criteria.prefetch_related("levels").all())
         self.model_id_mapping = build_model_id_mapping(fresh_criteria)
-        criteria_ids = sorted(
-            self.model_id_mapping.criterion_numeric_to_uuid.keys()
-        )
+        criteria_ids = sorted(self.model_id_mapping.criterion_numeric_to_uuid.keys())
         self.criterion1_id = criteria_ids[0]
         self.criterion2_id = criteria_ids[1]
         self.level1_id = min(
@@ -366,9 +364,7 @@ class EssayDetailTests(GradingTestMixin, APITestCase):
         )
 
         other_rubric = self.create_rubric(other_user)
-        other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_essay = self.create_essay(other_assignment)
 
     def detail_url(self, essay_id: uuid.UUID | str) -> str:
@@ -427,9 +423,7 @@ class EssayDeleteTests(GradingTestMixin, APITestCase):
         self.essay2 = self.create_essay(assignment, file_name="essay_two.pdf")
 
         other_rubric = self.create_rubric(other_user)
-        other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_essay = self.create_essay(other_assignment)
 
     def delete_url(self, essay_id: uuid.UUID | str) -> str:
@@ -484,9 +478,7 @@ class EssayRetryTests(GradingTestMixin, APITestCase):
         )
 
         other_rubric = self.create_rubric(other_user)
-        other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_failed_essay = self.create_essay(
             other_assignment, status=Essay.Status.FAILED
         )
@@ -614,17 +606,11 @@ class EssayGradingGetTests(GradingTestMixin, APITestCase):
         level2 = criterion2.levels.first()
 
         grading_result = self.create_grading_result(self.essay)
-        self.create_criterion_score(
-            grading_result, criterion1, level1
-        )
-        self.create_criterion_score(
-            grading_result, criterion2, level2
-        )
+        self.create_criterion_score(grading_result, criterion1, level1)
+        self.create_criterion_score(grading_result, criterion2, level2)
 
         other_rubric = self.create_rubric(other_user)
-        other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_essay = self.create_essay(other_assignment)
 
     def grading_url(self, essay_id: uuid.UUID | str) -> str:
@@ -1038,14 +1024,10 @@ class EssayGradingSaveTests(GradingTestMixin, APITestCase):
         self.score1 = self.create_criterion_score(
             self.grading_result, criterion1, self.level1
         )
-        self.create_criterion_score(
-            self.grading_result, criterion2, level2
-        )
+        self.create_criterion_score(self.grading_result, criterion2, level2)
 
         other_rubric = self.create_rubric(other_user)
-        other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_essay = self.create_essay(other_assignment)
 
     def grading_url(self, essay_id):
@@ -1118,9 +1100,7 @@ class EssayGradingSaveTests(GradingTestMixin, APITestCase):
         self.assertFalse(self.grading_result.teacher_approved)
 
     def test_patch_empty_payload(self):
-        response = self.client.patch(
-            self.grading_url(self.essay.id), {}, format="json"
-        )
+        response = self.client.patch(self.grading_url(self.essay.id), {}, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_patch_other_user_returns_404(self):
@@ -1403,9 +1383,7 @@ class TestParseModelResponseEdgeCases(GradingTestMixin, TestCase):
         rubric = self.create_rubric_with_criteria(user)
         criteria = list(rubric.criteria.prefetch_related("levels").all())
         self.model_id_mapping = build_model_id_mapping(criteria)
-        criteria_ids = sorted(
-            self.model_id_mapping.criterion_numeric_to_uuid.keys()
-        )
+        criteria_ids = sorted(self.model_id_mapping.criterion_numeric_to_uuid.keys())
         self.c1_id = criteria_ids[0]
         self.c2_id = criteria_ids[1]
         self.l1_id = min(

@@ -57,9 +57,7 @@ class AssignmentListTests(AssignmentTestMixin, APITestCase):
 
         rubric = self.create_rubric(user)
 
-        self.assignments = [
-            self.create_assignment(user, rubric) for _ in range(3)
-        ]
+        self.assignments = [self.create_assignment(user, rubric) for _ in range(3)]
         # Add essays to one assignment so we can test essay_count
         self.create_essay(self.assignments[0])
         self.create_essay(self.assignments[0])
@@ -265,9 +263,7 @@ class AssignmentDetailTests(AssignmentTestMixin, APITestCase):
         self.create_essay(self.assignment, file_name="bob.pdf")
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
 
     def detail_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_detail", kwargs={"assignment_id": assignment_id})
@@ -335,9 +331,7 @@ class AssignmentUpdateTests(AssignmentTestMixin, APITestCase):
             prompt="Original Prompt",
             source_text="Original Source",
         )
-        self.other_assignment = self.create_assignment(
-            other_user, self.other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, self.other_rubric)
 
     def detail_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_detail", kwargs={"assignment_id": assignment_id})
@@ -449,9 +443,7 @@ class AssignmentDeleteTests(AssignmentTestMixin, APITestCase):
         self.essay = self.create_essay(self.assignment)
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
 
     def detail_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_detail", kwargs={"assignment_id": assignment_id})
@@ -492,9 +484,7 @@ class AssignmentUploadTests(AssignmentTestMixin, APITestCase):
         self.assignment = self.create_assignment(user, rubric)
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
 
     def upload_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_upload", kwargs={"assignment_id": assignment_id})
@@ -804,9 +794,7 @@ class AssignmentEssaysListTests(AssignmentTestMixin, APITestCase):
         self.empty_assignment = self.create_assignment(user, rubric)
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
 
     def essays_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_essays", kwargs={"assignment_id": assignment_id})
@@ -868,9 +856,7 @@ class AssignmentExportCSVTests(AssignmentTestMixin, APITestCase):
         self.empty_assignment = self.create_assignment(self.user, self.rubric)
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
 
     def csv_url(self, assignment_id: uuid.UUID | str) -> str:
         return reverse("assignment_export_csv", kwargs={"assignment_id": assignment_id})
@@ -951,9 +937,7 @@ class AssignmentExportPDFTests(AssignmentTestMixin, APITestCase):
         self.essay = self.create_essay(self.assignment)
 
         other_rubric = self.create_rubric(other_user)
-        self.other_assignment = self.create_assignment(
-            other_user, other_rubric
-        )
+        self.other_assignment = self.create_assignment(other_user, other_rubric)
         self.other_essay = self.create_essay(self.other_assignment)
 
         # An essay on a different assignment of the same user

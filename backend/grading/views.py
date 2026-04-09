@@ -182,8 +182,7 @@ class EssayGradingView(APIView):
         tags=["essays"],
         operation_id="essays_grading_save",
         description=(
-            "Save teacher criterion score updates "
-            "without approving the grading result."
+            "Save teacher criterion score updates without approving the grading result."
         ),
         request=GradingResultApproveSerializer,
         responses={
@@ -227,8 +226,7 @@ class EssayGradingApproveView(APIView):
         tags=["essays"],
         operation_id="essays_grading_approve",
         description=(
-            "Approve an AI grading result, "
-            "transitioning the essay to REVIEWED."
+            "Approve an AI grading result, transitioning the essay to REVIEWED."
         ),
         request=GradingResultApproveSerializer,
         responses={
@@ -332,8 +330,7 @@ class EssayRetryView(APIView):
             return Response(
                 {
                     "detail": (
-                        "Cannot retry an essay that is "
-                        "already pending or processing."
+                        "Cannot retry an essay that is already pending or processing."
                     )
                 },
                 status=status.HTTP_400_BAD_REQUEST,

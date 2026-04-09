@@ -60,9 +60,7 @@ class DashboardView(APIView):
                                 "type": serializers.CharField(),
                                 "assignment_title": serializers.CharField(),
                                 "assignment_id": serializers.UUIDField(),
-                                "essay_id": serializers.UUIDField(
-                                    allow_null=True
-                                ),
+                                "essay_id": serializers.UUIDField(allow_null=True),
                                 "essay_file_name": serializers.CharField(
                                     allow_null=True
                                 ),
@@ -111,12 +109,8 @@ class DashboardView(APIView):
         user_assignments = Assignment.objects.filter(user=user)
 
         # Essay status counts
-        essay_counts_qs = user_essays.values("status").annotate(
-            count=Count("id")
-        )
-        essay_status_counts = {
-            s: 0 for s in Essay.Status.values
-        }
+        essay_counts_qs = user_essays.values("status").annotate(count=Count("id"))
+        essay_status_counts = {s: 0 for s in Essay.Status.values}
         for row in essay_counts_qs:
             essay_status_counts[row["status"]] = row["count"]
 
@@ -124,16 +118,16 @@ class DashboardView(APIView):
         assignment_counts_qs = user_assignments.values("status").annotate(
             count=Count("id")
         )
-        assignment_status_counts = {
-            s: 0 for s in Assignment.Status.values
-        }
+        assignment_status_counts = {s: 0 for s in Assignment.Status.values}
         for row in assignment_counts_qs:
             assignment_status_counts[row["status"]] = row["count"]
 
         # merges 4 separate querysets (created, graded, reviewed, failed) into one timeline sorted by date
-        recent_graded = user_essays.filter(
-            status=Essay.Status.GRADED
-        ).select_related("assignment").order_by("-updated_at")[:ACTIVITY_LIMIT]
+        recent_graded = (
+            user_essays.filter(status=Essay.Status.GRADED)
+            .select_related("assignment")
+            .order_by("-updated_at")[:ACTIVITY_LIMIT]
+        )
 
         recent_reviewed = (
             GradingResult.objects.filter(
@@ -147,52 +141,62 @@ class DashboardView(APIView):
             status=Assignment.Status.COMPLETED
         ).order_by("-updated_at")[:ACTIVITY_LIMIT]
 
-        recent_failed = user_essays.filter(
-            status=Essay.Status.FAILED
-        ).select_related("assignment").order_by("-updated_at")[:ACTIVITY_LIMIT]
+        recent_failed = (
+            user_essays.filter(status=Essay.Status.FAILED)
+            .select_related("assignment")
+            .order_by("-updated_at")[:ACTIVITY_LIMIT]
+        )
 
         # Normalize into activity items with a common shape
         activity_items = []
 
         for essay in recent_graded:
-            activity_items.append({
-                "type": "essay_graded",
-                "assignment_title": essay.assignment.title,
-                "assignment_id": essay.assignment.id,
-                "essay_id": essay.id,
-                "essay_file_name": essay.file_name,
-                "timestamp": essay.updated_at,
-            })
+            activity_items.append(
+                {
+                    "type": "essay_graded",
+                    "assignment_title": essay.assignment.title,
+                    "assignment_id": essay.assignment.id,
+                    "essay_id": essay.id,
+                    "essay_file_name": essay.file_name,
+                    "timestamp": essay.updated_at,
+                }
+            )
 
         for result in recent_reviewed:
-            activity_items.append({
-                "type": "essay_reviewed",
-                "assignment_title": result.essay.assignment.title,
-                "assignment_id": result.essay.assignment.id,
-                "essay_id": result.essay.id,
-                "essay_file_name": result.essay.file_name,
-                "timestamp": result.approved_at,
-            })
+            activity_items.append(
+                {
+                    "type": "essay_reviewed",
+                    "assignment_title": result.essay.assignment.title,
+                    "assignment_id": result.essay.assignment.id,
+                    "essay_id": result.essay.id,
+                    "essay_file_name": result.essay.file_name,
+                    "timestamp": result.approved_at,
+                }
+            )
 
         for assignment in recent_completed:
-            activity_items.append({
-                "type": "assignment_completed",
-                "assignment_title": assignment.title,
-                "assignment_id": assignment.id,
-                "essay_id": None,
-                "essay_file_name": None,
-                "timestamp": assignment.updated_at,
-            })
+            activity_items.append(
+                {
+                    "type": "assignment_completed",
+                    "assignment_title": assignment.title,
+                    "assignment_id": assignment.id,
+                    "essay_id": None,
+                    "essay_file_name": None,
+                    "timestamp": assignment.updated_at,
+                }
+            )
 
         for essay in recent_failed:
-            activity_items.append({
-                "type": "essay_failed",
-                "assignment_title": essay.assignment.title,
-                "assignment_id": essay.assignment.id,
-                "essay_id": essay.id,
-                "essay_file_name": essay.file_name,
-                "timestamp": essay.updated_at,
-            })
+            activity_items.append(
+                {
+                    "type": "essay_failed",
+                    "assignment_title": essay.assignment.title,
+                    "assignment_id": essay.assignment.id,
+                    "essay_id": essay.id,
+                    "essay_file_name": essay.file_name,
+                    "timestamp": essay.updated_at,
+                }
+            )
 
         # Sort by timestamp descending, take top N
         activity_items.sort(key=lambda x: x["timestamp"], reverse=True)
@@ -206,8 +210,7 @@ class DashboardView(APIView):
 
         # calculates percentage of max possible score per criterion, then buckets into ranges
         score_distribution = [
-            {"range": label, "count": 0}
-            for label, _, _ in SCORE_RANGES
+            {"range": label, "count": 0} for label, _, _ in SCORE_RANGES
         ]
         graded_essays = (
             user_essays.filter(

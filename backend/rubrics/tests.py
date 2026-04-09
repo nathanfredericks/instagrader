@@ -410,9 +410,7 @@ class CriterionUpdateTests(RubricTestMixin, APITestCase):
         self.rubric = self.create_rubric(self.user)
         self.criterion = self.create_criterion(self.rubric, name="Thesis", order=0)
         rubric2 = self.create_rubric(self.user)
-        self.criterion_other_rubric = self.create_criterion(
-            rubric2, name="Evidence"
-        )
+        self.criterion_other_rubric = self.create_criterion(rubric2, name="Evidence")
 
         other_rubric = self.create_rubric(self.create_user())
         self.other_criterion = self.create_criterion(other_rubric)
@@ -817,9 +815,7 @@ class LevelUpdateTests(RubricTestMixin, APITestCase):
         other_criterion = self.create_criterion(other_rubric)
         other_level = self.create_level(other_criterion)
         response = self.client.patch(
-            self.level_url(
-                other_rubric.id, other_criterion.id, other_level.id
-            ),
+            self.level_url(other_rubric.id, other_criterion.id, other_level.id),
             {"score": 99},
             format="json",
         )
@@ -897,9 +893,7 @@ class LevelDeleteTests(RubricTestMixin, APITestCase):
         other_criterion = self.create_criterion(other_rubric)
         other_level = self.create_level(other_criterion)
         response = self.client.delete(
-            self.level_url(
-                other_rubric.id, other_criterion.id, other_level.id
-            )
+            self.level_url(other_rubric.id, other_criterion.id, other_level.id)
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -912,9 +906,7 @@ class LevelDeleteTests(RubricTestMixin, APITestCase):
     def test_delete_level_wrong_criterion_returns_404(self):
         level_other_criterion = self.create_level(self.criterion2, score=99)
         response = self.client.delete(
-            self.level_url(
-                self.rubric.id, self.criterion.id, level_other_criterion.id
-            )
+            self.level_url(self.rubric.id, self.criterion.id, level_other_criterion.id)
         )
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -1412,9 +1404,7 @@ class RubricInUseMutationProtectionTests(RubricTestMixin, APITestCase):
         """Updating a level to a duplicate score returns 400."""
         self.essay.status = Essay.Status.PENDING
         self.essay.save(update_fields=["status"])
-        level2 = self.create_level(
-            self.criterion, order=1, score=2, descriptor="L2"
-        )
+        level2 = self.create_level(self.criterion, order=1, score=2, descriptor="L2")
         response = self.client.patch(
             reverse(
                 "level_detail",
