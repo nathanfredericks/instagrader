@@ -1,0 +1,10 @@
+[project]
+name = "model-poc"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "boto3>=1.35.0",
+    "botocore[crt]>=1.42.39",
+]

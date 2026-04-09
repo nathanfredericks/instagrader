@@ -1,0 +1,5 @@
+test_media/
+*.sqlite3
+media/
+dump.rdb
+.coverage

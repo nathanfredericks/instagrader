@@ -1,0 +1,109 @@
+{
+  "id": 1,
+  "criteria": [
+    {
+      "id": 1,
+      "name": "Thesis and Argumentation",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "Thesis is missing, unclear, or takes no clear position. Arguments are not relevant to the topic or are missing entirely."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Thesis is present but vague or weakly stated. Arguments are present but lack depth, clarity, or direct connection to the thesis."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "Thesis is clear and takes a definite position. Arguments are relevant and support the thesis with adequate reasoning."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "Thesis is compelling, specific, and insightful. Arguments are sophisticated, well-developed, and strongly support the thesis with nuanced reasoning."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Evidence and Support",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "Evidence is missing, irrelevant, or inaccurate. No examples or details are provided to support claims."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Limited evidence is provided. Examples may be general, weakly connected to arguments, or insufficient to fully support claims."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "Adequate evidence is provided through relevant examples and details. Support is generally effective and connects well to arguments."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "Strong, specific, and varied evidence is provided. Examples are highly relevant, convincing, and thoroughly support all major arguments."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Organization and Structure",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "Essay lacks clear organization. Ideas are presented randomly or illogically. No clear introduction or conclusion."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Essay has basic structure but may be uneven. Transitions are weak or missing. Introduction and conclusion are present but underdeveloped."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "Essay is well-organized with clear introduction, body, and conclusion. Logical progression of ideas with functional transitions."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "Essay demonstrates sophisticated organization. Ideas flow seamlessly with purposeful transitions. Introduction and conclusion are engaging and effective."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Language and Conventions",
+      "levels": [
+        {
+          "id": 1,
+          "score": 1,
+          "descriptor": "Frequent errors in grammar, spelling, or punctuation that interfere with understanding. Word choice is limited or inappropriate."
+        },
+        {
+          "id": 2,
+          "score": 2,
+          "descriptor": "Some errors in grammar, spelling, or punctuation. Word choice is basic or occasionally imprecise. Errors may distract from meaning."
+        },
+        {
+          "id": 3,
+          "score": 3,
+          "descriptor": "Few errors in grammar, spelling, and punctuation. Word choice is appropriate and generally effective. Minor errors do not interfere with meaning."
+        },
+        {
+          "id": 4,
+          "score": 4,
+          "descriptor": "Demonstrates command of conventions with essentially error-free writing. Word choice is precise, varied, and sophisticated."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run: Backend (Django)",
+      "type": "shell",
+      "command": "python manage.py runserver 0.0.0.0:8000",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Run: Worker (Celery)",
+      "type": "shell",
+      "command": "celery -A instagrader worker --loglevel=info",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Run: Backend + Worker",
+      "dependsOn": [
+        "Run: Backend (Django)",
+        "Run: Worker (Celery)"
+      ],
+      "dependsOrder": "parallel"
+    }
+  ]
+}

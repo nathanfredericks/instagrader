@@ -1,0 +1,54 @@
+name: API Types Check
+
+on:
+  pull_request:
+    paths:
+      - "backend/**"
+      - "frontend/lib/api/schema.d.ts"
+
+jobs:
+  check-api-types:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: uv sync
+
+      - name: Start backend server
+        working-directory: backend
+        run: |
+          uv run python manage.py migrate --run-syncdb
+          uv run python manage.py runserver 8000 &
+          sleep 5
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: bun install
+
+      - name: Generate API types
+        working-directory: frontend
+        run: bun run generate-api
+
+      - name: Check for schema changes
+        run: |
+          if git diff --exit-code frontend/lib/api/schema.d.ts; then
+            echo "API types are up to date"
+          else
+            echo "::error::API types are out of date. Run 'bun run generate-api' in the frontend directory and commit the changes."
+            git diff frontend/lib/api/schema.d.ts
+            exit 1
+          fi

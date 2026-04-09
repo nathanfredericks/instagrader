@@ -1,0 +1,87 @@
+services:
+  postgres:
+    image: postgres:17
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  valkey:
+    image: valkey/valkey:8
+    volumes:
+      - valkey_data:/data
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: ../backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - media_files:/app/media
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG:-0}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: postgres
+      VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379/0}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      JWT_AUTH_SECURE: ${JWT_AUTH_SECURE:-false}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-}
+      BEDROCK_REGION: ${BEDROCK_REGION:-ca-central-1}
+      BEDROCK_MAX_COMPLETION_TOKENS: ${BEDROCK_MAX_COMPLETION_TOKENS:-4096}
+      BEDROCK_TEMPERATURE: ${BEDROCK_TEMPERATURE:-0.0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  celery:
+    build: ../backend
+    command: celery -A instagrader worker --loglevel=info
+    volumes:
+      - media_files:/app/media
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG:-0}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: postgres
+      VALKEY_URL: ${VALKEY_URL:-redis://valkey:6379/0}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-}
+      BEDROCK_REGION: ${BEDROCK_REGION:-ca-central-1}
+      BEDROCK_MAX_COMPLETION_TOKENS: ${BEDROCK_MAX_COMPLETION_TOKENS:-4096}
+      BEDROCK_TEMPERATURE: ${BEDROCK_TEMPERATURE:-0.0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      valkey:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ../frontend
+      args:
+        API_URL: ${API_URL:-http://api:8000}
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
+  valkey_data:
+  media_files:

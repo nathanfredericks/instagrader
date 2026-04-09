@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: Django (runserver)",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": [
+        "runserver",
+        "0.0.0.0:8000"
+      ],
+      "cwd": "${workspaceFolder}",
+      "django": true,
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "DJANGO_SETTINGS_MODULE": "instagrader.settings"
+      }
+    },
+    {
+      "name": "Worker: Celery",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "celery",
+      "args": [
+        "-A",
+        "instagrader",
+        "worker",
+        "--loglevel=info"
+      ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+        "DJANGO_SETTINGS_MODULE": "instagrader.settings"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Backend + Worker",
+      "configurations": [
+        "Backend: Django (runserver)",
+        "Worker: Celery"
+      ],
+      "stopAll": true
+    }
+  ]
+}

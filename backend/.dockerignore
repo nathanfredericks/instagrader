@@ -1,0 +1,10 @@
+__pycache__
+*.pyc
+.venv
+*.sqlite3
+media/
+test_media/
+.ruff_cache
+.mypy_cache
+.pytest_cache
+dump.rdb
